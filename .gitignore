@@ -1,2 +1,41 @@
-/Default Publisher_InterTrade2_1.0.0.0.app
-/Default Publisher_InterTrade_1.0.0.0.app
+# Ignore Visual Studio Code workspace settings
+.vscode/
+
+# Ignore build artifacts
+.alpackages/
+
+# Ignore AL extension symbols
+*.app
+
+# Ignore generated files during publishing
+launch.json
+
+# Ignore dependency cache
+.dependencycache/
+
+# Ignore temporary files
+*.tmp
+*.log
+*.bak
+
+# Ignore Node.js modules (falls verwendet)
+node_modules/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore custom output or debug directories
+bin/
+obj/
+
+# Ignore AL language server metadata
+.alcache/
+
+# Ignore compiled metadata
+*.dal
+*.runtime
+*.alx
+
+.gitignore
