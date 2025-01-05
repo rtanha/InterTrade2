@@ -2,8 +2,9 @@ report 50005 "Purch Order (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Purch Order - Inter.rdlc';
-    Caption = 'Order';
+    Caption = 'Purchase Order';
     PreviewMode = PrintLayout;
+    ApplicationArea = All;
 
     dataset
     {
@@ -195,6 +196,10 @@ report 50005 "Purch Order (INT)"
                     }
                     column(RequestedReceiptDate_PurchHeader_Description; RequestedShippDate)
                     {
+                    }
+                    column(ShipmentMethod_City_PurchHeader; "Purchase Header"."Shipment Method City (INT)")
+                    {
+
                     }
                     dataitem(DimensionLoop1; "Integer")
                     {
@@ -1314,6 +1319,9 @@ report 50005 "Purch Order (INT)"
                 // CurrReport.Language := Language.GetLanguageID("Language Code");
 
                 //CompanyInfo.GET;
+                CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
+                CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");
+                FormatAddr.SetLanguageCode("Language Code");
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -1405,14 +1413,17 @@ report 50005 "Purch Order (INT)"
                     field(NoofCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInformation; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1424,6 +1435,7 @@ report 50005 "Purch Order (INT)"
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1434,6 +1446,7 @@ report 50005 "Purch Order (INT)"
                     field(WithHeader; WithHeader)
                     {
                         Caption = 'With Logo';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -1454,6 +1467,7 @@ report 50005 "Purch Order (INT)"
             // LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
 
             LogInteractionEnable := LogInteraction;
+            WithHeader := true;
         end;
     }
 
@@ -1616,6 +1630,7 @@ report 50005 "Purch Order (INT)"
         CountryOfOrgin: Label 'Origin: %1';
         CountryOfOriginText: Text;
         country: Record "Country/Region";
+        LanguageMgt: Codeunit Language;
 
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewArchiveDocument: Boolean; NewLogInteraction: Boolean)
     begin

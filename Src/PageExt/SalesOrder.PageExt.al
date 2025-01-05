@@ -30,6 +30,11 @@ pageextension 50001 "Sales Order Ext (INT)" extends "Sales Order"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Container No. (INT) field.', Comment = '%';
             }
+            field("Shipping (INT)"; Rec."Shipping (INT)")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Shipping (INT) field.', Comment = '%';
+            }
         }
     }
 
@@ -44,7 +49,10 @@ pageextension 50001 "Sales Order Ext (INT)" extends "Sales Order"
                 ApplicationArea = All;
                 CaptionML = ENU = 'Print Document', DEU = 'Druckbelege';
                 Image = PrintDocument;
-
+                Ellipsis = true;
+                Promoted = true;
+                PromotedCategory = Category11;
+                ShortcutKey = 'Ctrl+Alt+D';
                 trigger OnAction()
                 var
                     PrintDocument: Record "Print Document";

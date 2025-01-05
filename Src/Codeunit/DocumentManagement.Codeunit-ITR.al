@@ -358,12 +358,73 @@ codeunit 50000 "Document Management (INT)"
             RecRef.GetTable(PrintDocument);
             DocType.GET(PrintDocument."Document Type");
             Report.SaveAs(DocType."Report ID", '', ReportFormat::Pdf, OutStream, RecRef);
-            Recipients.Add(PrintDocument."E-mail");
-            EmailMsG.Create(Recipients, StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'Budy', false);
+            IF DocType."Email Receiver" <> '' then
+                Recipients.Add(DocType."Email Receiver")
+            else
+                Recipients.Add(PrintDocument."E-mail");
+            EmailMsG.Create(Recipients, StrSubstNo(MailSubject, DocType."Pdf Name", PrintDocument."Ref. No."), '', false);
             TempBlob.CreateInStream(InsStream);
-            EmailMsG.AddAttachment(StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'pdf', InsStream);
+            EmailMsG.AddAttachment(StrSubstNo(MailSubject, DocType."Pdf Name", PrintDocument."Ref. No.") + '.pdf', 'pdf', InsStream);
             Email.OpenInEditor(EmailMsG);
         end;
+    end;
+
+    procedure SendFileAsEmailAttach(PrintDocument: Record "Print Document"; InStream: InStream; AttachmentFileName: Text)
+    var
+        DocType: Record "Document Type";
+        EmailMsG: Codeunit "Email Message";
+        Email: Codeunit Email;
+        Recipients: List of [Text];
+        MailSubject: Label '%1 %2';
+    begin
+        DocType.get(PrintDocument."Document Type");
+        IF DocType."Email Receiver" <> '' then
+            Recipients.Add(DocType."Email Receiver")
+        else
+            Recipients.Add(PrintDocument."E-mail");
+        // EmailMsG.Create(Recipients, StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'Budy', true);
+        // EmailMsG.AddAttachment(StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'pdf', InStream);
+        EmailMsG.Create(Recipients, DocType."Email Title", 'Budy', true);
+        EmailMsG.AddAttachment(AttachmentFileName, '', InStream);
+        // Email.RetrieveEmails();
+
+        Email.OpenInEditor(EmailMsG);
+
+    end;
+
+    procedure downloadPrintDocReport(var PrintDocument: Record "Print Document"; AttachmentFileName: Text): Text
+    var
+        FileMgt: Codeunit "File Management";
+        ServerAttachmentFilePath: Text;
+        OutStream: OutStream;
+        InsStream: InStream;
+        RecRef: RecordRef;
+        TempBlob: Codeunit "Temp Blob";
+        Customer: Record Customer;
+        DocType: Record "Document Type";
+        Filename: text;
+        ServerFilename: Text;
+        AttachFileName: Label '%1 %2';
+
+    begin
+        TempBlob.CreateOutStream(OutStream);
+        RecRef.GetTable(PrintDocument);
+        DocType.GET(PrintDocument."Document Type");
+        Report.SaveAs(DocType."Report ID", '', ReportFormat::Pdf, OutStream, RecRef);
+        TempBlob.CreateInStream(InsStream);
+        SendFileAsEmailAttach(PrintDocument, InsStream, StrSubstNo(AttachmentFileName, DocType."Pdf Name", PrintDocument."Ref. No.") + '.pdf');
+        /*
+        ServerFilename := DocType."FTP Adresse" + DocType."Pdf Name" + '.pdf';
+        Filename := FileMgt.GetFileName(ServerFilename);
+        FileMgt.BLOBExport(TempBlob, ServerFilename, true);
+        */
+        // FileMgt.BLOBExport(TempBlob, DocType."FTP Adresse" + DocType."Pdf Name" + '.pdf', true);
+        /*
+                TempBlob.CreateInStream(InsStream);
+                ServerAttachmentFilePath := DocType."Pdf Name" + '.pdf';
+                DownloadFromStream(InsStream, 'Export', '', '', ServerAttachmentFilePath);
+                exit(ServerAttachmentFilePath);
+        */
     end;
 
     procedure TestCalcFields(SalesHeader: Record "Sales Header")
@@ -403,6 +464,20 @@ codeunit 50000 "Document Management (INT)"
                 SalesLine."Batch No. (INT)" := SalesHeader."No.";
                 SalesLine.MODIFY;
             UNTIL SalesLine.NEXT = 0;
+    end;
+    // procedure SendCsvFile(var PrintDoc: Record "Print Document")
+    // var
+    //   Selection: Integer;
+    //   FtpMgt: Codeunit exportcs
+    // begin
+
+    // end;
+
+    procedure TestFtp()
+    var
+        FTPMgt: Codeunit "VFF FTP Management";
+    begin
+        // FTPMgt.
     end;
 }
 

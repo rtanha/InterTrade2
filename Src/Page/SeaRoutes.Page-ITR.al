@@ -1,9 +1,10 @@
 page 50006 "Sea Routes (INT)"
 {
-    Caption = 'Sea Route';
+    CaptionML = ENU = 'Sea Route', DEU = 'Shiffreise';
     DataCaptionFields = "No.", Name;
     PageType = List;
     SourceTable = "Sea Route";
+    ApplicationArea = All;
 
     layout
     {

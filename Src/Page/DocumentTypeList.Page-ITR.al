@@ -5,7 +5,7 @@ page 50000 "Document Type View (INT)"
     PageType = List;
     SourceTable = "Document Type";
     UsageCategory = Administration;
-
+    CardPageId = 50009;
     layout
     {
         area(content)

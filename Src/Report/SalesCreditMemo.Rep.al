@@ -5,6 +5,7 @@ report 50008 "Sales - Credit Memo (INT)"
     Caption = 'Sales - Cr. Memo';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
     PreviewMode = PrintLayout;
+    ApplicationArea = All;
 
     dataset
     {
@@ -250,6 +251,10 @@ report 50008 "Sales - Credit Memo (INT)"
                     }
                     column(ShipmentDate_InvHeader; "Sales Cr.Memo Header"."Shipment Date")
                     {
+                    }
+                    column(ShipmentMethodCity; "Sales Cr.Memo Header"."Shipment Method City (INT)")
+                    {
+
                     }
                     dataitem(DimensionLoop1; "Integer")
                     {
@@ -863,6 +868,9 @@ report 50008 "Sales - Credit Memo (INT)"
             trigger OnAfterGetRecord()
             begin
                 // CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
+                CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");
+                FormatAddr.SetLanguageCode("Language Code");
 
                 CompanyInfo.Get;
 
@@ -976,27 +984,33 @@ report 50008 "Sales - Credit Memo (INT)"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
+                        ApplicationArea = All;
                     }
                     field(LogInteraction; LogInteraction)
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
                     }
                     field(DisplayAsmInformation; DisplayAssemblyInformation)
                     {
                         Caption = 'Show Assembly Components';
+                        ApplicationArea = All;
                     }
                     field(DisplayAdditionalFeeNote; DisplayAdditionalFeeNote)
                     {
                         Caption = 'Show Additional Fee Note';
+                        ApplicationArea = All;
                     }
                     field(WithHeader; WithHeader)
                     {
                         Caption = 'With Header';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -1015,6 +1029,7 @@ report 50008 "Sales - Credit Memo (INT)"
         begin
             InitLogInteraction;
             LogInteractionEnable := LogInteraction;
+            WithHeader := true;
         end;
     }
 
@@ -1197,6 +1212,7 @@ report 50008 "Sales - Credit Memo (INT)"
         VATAmtSpecificationCaptionLbl: Label 'VAT Amount Specification';
         LineAmtCaptionLbl: Label 'Line Amount';
         InvoiceDiscoutAmountCaptionLbl: Label 'Invoice Discount Amount';
+        LanguageMgt: Codeunit Language;
 
     procedure InitLogInteraction()
     begin

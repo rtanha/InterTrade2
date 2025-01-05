@@ -1,5 +1,6 @@
 table 50007 Batch
 {
+    CaptionML = ENU = 'Batch', DEU = 'Partie';
     DrillDownPageID = "Batch List (INT)";
     LookupPageID = "Batch List (INT)";
 

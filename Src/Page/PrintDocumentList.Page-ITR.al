@@ -141,6 +141,7 @@ page 50003 "Print Document List (INT)"
                     PrintDocument."Document Type" := Rec."Document Type";
                     PrintDocument."Print of" := Rec."Print of";
                     PrintDocument."Ref. Type" := rec."Ref. Type";
+                    PrintDocument."Ref. No." := rec."Ref. No.";
                     NewDocumentText(PrintDocument);
                 end;
             }
@@ -152,8 +153,11 @@ page 50003 "Print Document List (INT)"
                 trigger OnAction()
                 var
                     PrintDocumentPage: Page "Print Document (INT)";
+                    printDocument: Record "Print Document";
                 begin
-                    PrintDocumentPage.SetTableView(Rec);
+                    printDocument.Get(Rec.RecordId);
+                    printDocument.SetRecFilter();
+                    PrintDocumentPage.SetTableView(printDocument);
                     PrintDocumentPage.RunModal()
                 end;
 
@@ -270,6 +274,7 @@ page 50003 "Print Document List (INT)"
             DocPrint."Receiver Type" := DocumentType."Receiver Type";
             DocPrint.VALIDATE("Document Type", DocumentType.Code);
         END;
+        DocPrint."Document No." := '';
         DocPrint.INSERT(TRUE);
         PAGE.RUN(50001, DocPrint);
     END;

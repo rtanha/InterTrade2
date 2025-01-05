@@ -38,6 +38,11 @@ pageextension 50002 "Purchase Order Ext (INT)" extends "Purchase Order"
                 ApplicationArea = All;
                 CaptionML = ENU = 'Print Document', DEU = 'Druckbelege';
                 Image = PrintDocument;
+                Ellipsis = true;
+                Promoted = true;
+                PromotedCategory = Category10;
+                ShortcutKey = 'Ctrl+Alt+D';
+
                 trigger OnAction()
                 var
                     PrintDocument: Record "Print Document";

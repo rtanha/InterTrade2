@@ -1,4 +1,4 @@
-pageextension 50005 "Purch. Inv Subform EXT INT" extends "Purch. Invoice Subform"
+pageextension 50005 "Purch. Inv Subform EXT (INT)" extends "Purch. Invoice Subform"
 {
     layout
     {

@@ -3,7 +3,7 @@ table 50006 "Sea Route"
     DataPerCompany = false;
     DrillDownPageID = "Sea Routes (INT)";
     LookupPageID = "Sea Routes (INT)";
-    CaptionML = ENU = 'Sea Route', DEU = 'Reise-Route';
+    CaptionML = ENU = 'Sea Route', DEU = 'Shiffreise';
 
     fields
     {

@@ -2,6 +2,7 @@ report 50001 "Lieferschein (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Lieferschein.rdlc';
+    ApplicationArea = All;
 
     dataset
     {

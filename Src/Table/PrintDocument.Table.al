@@ -349,16 +349,13 @@ table 50004 "Print Document"
     begin
         "Document Date" := WorkDate;
         DocumentType.Get("Document Type");
-        NoSeriesManagement.InitSeries(DocumentType."Nos.",
-                                      xRec."No. Series",
-                                      "Document Date",
-                                      "Document No.",
-                                      "No. Series");
+        if Rec."Document No." = '' then
+            rec."Document No." := NoSeriesManagement.GetNextNo(DocumentType."Nos.", "Document Date");
     end;
 
     var
         DocumentType: Record "Document Type";
-        NoSeriesManagement: Codeunit NoSeriesManagement;
+        NoSeriesManagement: Codeunit "No. Series";
         Text0001: Label 'is only valid for Salesdocuments';
         PurchaseHeader: Record "Purchase Header";
         SalesHeader: Record "Sales Header";

@@ -191,4 +191,37 @@ codeunit 50001 "Intertrade subscriber (INT)"
         end;
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Mailing", OnBeforeGetToAddressFromCustomer, '', false, false)]
+    local procedure "Document-Mailing_OnBeforeGetToAddressFromCustomer"(BillToCustomerNo: Code[20]; var ToAddress: Text[250]; var IsHandled: Boolean)
+    var
+        Customer: Record Customer;
+    begin
+        if Customer.Get(BillToCustomerNo) then
+            if Customer."Invoice eMail (INT)" <> '' then begin
+                ToAddress := Customer."Invoice eMail (INT)";
+                IsHandled := true;
+            end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", OnAfterValidateEvent, "Sell-to Customer No.", false, false)]
+    local procedure OnAfterValidateSalesHeaderSellToCustomer(var xRec: Record "Sales Header"; var Rec: Record "Sales Header")
+    var
+        Cust: Record Customer;
+    begin
+        Cust.Get(Rec."Sell-to Customer No.");
+        Rec."Shipment Method City (INT)" := Cust."Place of Shipment Method (INT)";
+        Rec."Transaction Type" := Cust."Transaction Type (INT)";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", OnAfterValidateEvent, "Buy-From Vendor No.", false, false)]
+    local procedure OnAfterValidatePurchHeaderBuyFromVendorNo(var xRec: Record "Purchase Header"; var Rec: Record "Purchase Header")
+    var
+        Vend: Record Vendor;
+    begin
+        Vend.Get(Rec."Buy-from Vendor No.");
+        Rec."Shipment Method City (INT)" := Vend."Place of Shipment Method (INT)";
+        Rec."Transaction Type" := Vend."Transaction Type (INT)";
+    end;
+
+
 }

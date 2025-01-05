@@ -2,8 +2,9 @@ report 50004 "Order Confirmation (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Order Confirmation Inter.rdlc';
-    Caption = 'Order Confirmation';
+    Caption = 'Order Confirmation', Comment = 'DEU = "Auftragsbestätigung"';
     PreviewMode = PrintLayout;
+    ApplicationArea = All;
 
     dataset
     {
@@ -11,7 +12,7 @@ report 50004 "Order Confirmation (INT)"
         {
             DataItemTableView = SORTING("Document Type", "No.") WHERE("Document Type" = CONST(Order));
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
-            RequestFilterHeading = 'Sales Order';
+            RequestFilterHeading = 'Sales Order', Comment = 'DEU = "Verkaufsauftrag"';
             column(DocType_SalesHeader; "Document Type")
             {
             }
@@ -147,6 +148,10 @@ report 50004 "Order Confirmation (INT)"
                     }
                     column(PricesInclVAT_SalesHeader; "Sales Header"."Prices Including VAT")
                     {
+                    }
+                    column(ShipmentMethodCity_SalesHeader; "Sales Header"."Shipment Method City (INT)")
+                    {
+
                     }
                     column(PageCaption; PageCaptionCap)
                     {
@@ -1391,6 +1396,9 @@ report 50004 "Order Confirmation (INT)"
             trigger OnAfterGetRecord()
             begin
                 // CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
+                CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");
+                FormatAddr.SetLanguageCode("Language Code");
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -1505,18 +1513,21 @@ report 50004 "Order Confirmation (INT)"
             {
                 group(Optionen)
                 {
-                    Caption = 'Options';
+                    Caption = 'Options', Comment = 'DEU = "Optionen"';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'DEU = "Anzahl Kopie"';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information''DEU = "Interne Informationen anzeigen"';
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
-                        Caption = 'Archive Document';
+                        Caption = 'Archive Document', Comment = 'DEU = "Beleg archivieren"';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1526,8 +1537,9 @@ report 50004 "Order Confirmation (INT)"
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'DEU = "Aktivitäten protokolieren"';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1537,11 +1549,13 @@ report 50004 "Order Confirmation (INT)"
                     }
                     field(ShowAssemblyComponents; DisplayAssemblyInfo)
                     {
-                        Caption = 'Show Assembly Components';
+                        Caption = 'Show Assembly Components', Comment = 'DEU = "Montagekomponenten anzeigen"';
+                        ApplicationArea = All;
                     }
                     field(WithHeader; WithHeader)
                     {
-                        Caption = 'With Header';
+                        Caption = 'With Header', Comment = 'DEU = "Mit Briefkopf"';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -1562,15 +1576,16 @@ report 50004 "Order Confirmation (INT)"
             // LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
 
             LogInteractionEnable := LogInteraction;
+            WithHeader := true;
         end;
     }
 
     labels
     {
-        BankCode = 'Bank Code';
-        USAccount = 'US$ Account';
-        QtyOfMeasureCap = 'No. Package';
-        BankAccount = '€-Account';
+        BankCode = 'Bank Code', Comment = 'DEU = "BLZ"';
+        USAccount = 'US$ Account', Comment = 'DEU = "US$ Konto"';
+        QtyOfMeasureCap = 'No. Package', Comment = 'DEU = "Anzahl Koli"';
+        BankAccount = '€-Account', Comment = 'DEU = "€ Konto"';
     }
 
     trigger OnInitReport()
@@ -1603,13 +1618,13 @@ report 50004 "Order Confirmation (INT)"
     end;
 
     var
-        Text000: Label 'Salesperson';
-        Text001: Label 'Total %1';
-        Text002: Label 'Total %1 Incl. VAT';
-        Text003: Label 'COPY';
-        Text004: Label 'Order Confirmation %1';
-        PageCaptionCap: Label 'Page %1 of %2';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text000: Label 'Salesperson', Comment = 'DEU = "Verkäufer"';
+        Text001: Label 'Total %1', Comment = 'DEU = "Total %1"';
+        Text002: Label 'Total %1 Incl. VAT', Comment = 'DEU = "Total %1 inkl. MwSt"';
+        Text003: Label ' COPY', Comment = 'DEU = "Kopie"';
+        Text004: Label 'Order Confirmation %1', Comment = 'DEU = "Auftragsbestätigung"';
+        PageCaptionCap: Label 'Page %1 of %2', Comment = 'DEU = "Seite %1 von %2"';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'DEU = "Total %1 Exkl. MwSt"';
         GLSetup: Record "General Ledger Setup";
         ShipmentMethod: Record "Shipment Method";
         PaymentTerms: Record "Payment Terms";
@@ -1693,51 +1708,51 @@ report 50004 "Order Confirmation (INT)"
         LogInteractionEnable: Boolean;
         DisplayAssemblyInfo: Boolean;
         AsmInfoExistsForLine: Boolean;
-        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';
+        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.', Comment = 'DEU = "Telefonnr."';
         CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
-        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.';
-        CompanyInfo__Giro_No__CaptionLbl: Label 'Giro No.';
-        CompanyInfo__Bank_Name_CaptionLbl: Label 'Bank';
+        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.', Comment = 'DEU = "USt. IdNr."';
+        CompanyInfo__Giro_No__CaptionLbl: Label 'Giro No.', Comment = 'DEU = "Postgirokontonr."';
+        CompanyInfo__Bank_Name_CaptionLbl: Label 'Bank', Comment = 'DEU = "Bankkonto"';
         CompanyInfo_RegistrationNo: Label 'Registration No.:';
         Sales_Header___Shipment_Date_CaptionLbl: Label 'Shipment Date';
         Order_No_CaptionLbl: Label 'Order No.';
         Header_DimensionsCaptionLbl: Label 'Header Dimensions';
-        Unit_PriceCaptionLbl: Label 'Pack. Price';
-        Sales_Line___Line_Discount___CaptionLbl: Label 'Disc. %';
+        Unit_PriceCaptionLbl: Label 'Pack. Price', Comment = 'DEU = "VK-Preis PE"';
+        Sales_Line___Line_Discount___CaptionLbl: Label 'Disc. %', Comment = 'DEU = "Rabatt %"';
         AmountCaptionLbl: Label 'Amount';
-        ContinuedCaptionLbl: Label 'Continued';
-        ContinuedCaption_Control83Lbl: Label 'Continued';
+        ContinuedCaptionLbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
+        ContinuedCaption_Control83Lbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
         SalesLine__Inv__Discount_Amount_CaptionLbl: Label 'Inv. Discount Amount';
-        SubtotalCaptionLbl: Label 'Subtotal';
-        VATDiscountAmountCaptionLbl: Label 'Payment Discount on VAT';
+        SubtotalCaptionLbl: Label 'Subtotal', Comment = 'DEU = "Zw. Summe"';
+        VATDiscountAmountCaptionLbl: Label 'Payment Discount on VAT', Comment = 'DEU = "Skonto auf MwSt"';
         Line_DimensionsCaptionLbl: Label 'Line Dimensions';
-        VATAmountLine__VAT___CaptionLbl: Label 'VAT %';
-        VATAmountLine__VAT_Base__Control106CaptionLbl: Label 'VAT Base';
-        VATAmountLine__VAT_Amount__Control107CaptionLbl: Label 'VAT Amount';
+        VATAmountLine__VAT___CaptionLbl: Label 'VAT %', Comment = 'DEU = "MwSt. %"';
+        VATAmountLine__VAT_Base__Control106CaptionLbl: Label 'VAT Base', Comment = 'DEU = "MwSt. Bemessungsrundlage"';
+        VATAmountLine__VAT_Amount__Control107CaptionLbl: Label 'VAT Amount', Comment = 'DEU = "MwSt. Betrag"';
         VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification';
         VATAmountLine__Inv__Disc__Base_Amount__Control73CaptionLbl: Label 'Inv. Disc. Base Amount';
         VATAmountLine__Line_Amount__Control72CaptionLbl: Label 'Line Amount';
         VATAmountLine__Invoice_Discount_Amount__Control74CaptionLbl: Label 'Invoice Discount Amount';
-        VATAmountLine__VAT_Identifier_CaptionLbl: Label 'VAT Identifier';
-        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
-        VATAmountLine__VAT_Base__Control110CaptionLbl: Label 'Continued';
+        VATAmountLine__VAT_Identifier_CaptionLbl: Label 'VAT Identifier', Comment = 'DEU = "MwSt. Kennzeichen"';
+        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
+        VATAmountLine__VAT_Base__Control110CaptionLbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
         VATAmountLine__VAT_Base__Control114CaptionLbl: Label 'Total';
-        VALVATAmountLCY_Control149CaptionLbl: Label 'VAT Amount';
-        VALVATBaseLCY_Control150CaptionLbl: Label 'VAT Base';
-        VATAmountLine__VAT____Control151CaptionLbl: Label 'VAT %';
-        VATAmountLine__VAT_Identifier__Control152CaptionLbl: Label 'VAT Identifier';
-        VALVATBaseLCYCaptionLbl: Label 'Continued';
-        VALVATBaseLCY_Control157CaptionLbl: Label 'Continued';
+        VALVATAmountLCY_Control149CaptionLbl: Label 'VAT Amount', Comment = 'DEU = "MwSt. Betrag"';
+        VALVATBaseLCY_Control150CaptionLbl: Label 'VAT Base', Comment = 'DEU = "MwSt. Bemessungsrundlage"';
+        VATAmountLine__VAT____Control151CaptionLbl: Label 'VAT %', Comment = 'DEU = "MwSt. %"';
+        VATAmountLine__VAT_Identifier__Control152CaptionLbl: Label 'VAT Identifier', Comment = 'DEU = "MwSt. Kennzeichen"';
+        VALVATBaseLCYCaptionLbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
+        VALVATBaseLCY_Control157CaptionLbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
         VALVATBaseLCY_Control160CaptionLbl: Label 'Total';
-        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Terms';
-        ShipmentMethod_DescriptionCaptionLbl: Label 'Shipment Method';
-        Ship_to_AddressCaptionLbl: Label 'Ship-to Address';
+        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Terms', Comment = 'DEU = "Zahlungsbedingungen"';
+        ShipmentMethod_DescriptionCaptionLbl: Label 'Shipment Method', Comment = 'DEU = "Lieferbedingung"';
+        Ship_to_AddressCaptionLbl: Label 'Ship-to Address', Comment = 'DEU = "Lief. an Adresse"';
         PrepmtLineAmount_Control166CaptionLbl: Label 'Amount';
-        PrepmtInvBuf_DescriptionCaptionLbl: Label 'Description';
-        PrepmtInvBuf__G_L_Account_No__CaptionLbl: Label 'G/L Account No.';
-        Prepayment_SpecificationCaptionLbl: Label 'Prepayment Specification';
-        ContinuedCaption_Control170Lbl: Label 'Continued';
-        ContinuedCaption_Control171Lbl: Label 'Continued';
+        PrepmtInvBuf_DescriptionCaptionLbl: Label 'Description', Comment = 'DEU = "Beschreibung"';
+        PrepmtInvBuf__G_L_Account_No__CaptionLbl: Label 'G/L Account No.', Comment = 'DEU = "Sachkontonr."';
+        Prepayment_SpecificationCaptionLbl: Label 'Prepayment Specification', Comment = 'DEU = "Vorauszahlung Spezifikation"';
+        ContinuedCaption_Control170Lbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
+        ContinuedCaption_Control171Lbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
         Line_DimensionsCaption_Control174Lbl: Label 'Line Dimensions';
         PrepmtVATAmountLine__VAT_Amount__Control194CaptionLbl: Label 'VAT Amount';
         PrepmtVATAmountLine__VAT_Base__Control195CaptionLbl: Label 'VAT Base';
@@ -1745,24 +1760,26 @@ report 50004 "Order Confirmation (INT)"
         PrepmtVATAmountLine__VAT____Control197CaptionLbl: Label 'VAT %';
         Prepayment_VAT_Amount_SpecificationCaptionLbl: Label 'Prepayment VAT Amount Specification';
         PrepmtVATAmountLine__VAT_Identifier_CaptionLbl: Label 'VAT Identifier';
-        ContinuedCaption_Control202Lbl: Label 'Continued';
-        ContinuedCaption_Control207Lbl: Label 'Continued';
+        ContinuedCaption_Control202Lbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
+        ContinuedCaption_Control207Lbl: Label 'Continued', Comment = 'DEU = "Fortsetzung"';
         PrepmtVATAmountLine__VAT_Base__Control208CaptionLbl: Label 'Total';
         PrepmtPaymentTerms_DescriptionCaptionLbl: Label 'Prepmt. Payment Terms';
         QuantityCaption: Text[30];
-        TextAllgeier001: Label 'No. Package';
-        FoodText: Label 'This sales confirmation has been concluded in accordance with the rules and conditions of the Waren-Verein der Hamburger Börse e.V., whose arbitrators or experts shall be competent for final settlement of all and any dispute arising hereform. Download and see the terms and conditions here: http://www.waren-verein.de';
+        TextAllgeier001: Label 'No. Package', comment = 'DEU="Packet No."';
+        FoodText: Label 'This sales confirmation has been concluded in accordance with the rules and conditions of the Waren-Verein der Hamburger Börse e.V., whose arbitrators or experts shall be competent for final settlement of all and any dispute arising hereform. Download and see the terms and conditions here: http://www.waren-verein.de'
+                , Comment = 'DEU = "Diese Rechnung ist zu den Geschäftsbedingungen des Warenvereins der Hamburger  Börse e.V., dessen Schiedsgericht und Sachverständige zur endgültigen Entscheidung aller Streitigkeiten sein sollen, zustande gekommen Bei Bedarf können diese hier heruntergeladen und nachgelesen werden. http://www.waren-verein.de"';
         WithHeader: Boolean;
         FonText: Label 'Telefon:';
-        FaxText: Label 'Fax:';
+        FaxText: Label 'Fax:', Comment = 'DEU = "Fax:"';
         DocumentMgt: Codeunit "Document Management (INT)";
         UnitofMeasure: Record "Unit of Measure";
         Customer: Record Customer;
-        NettWeightCaption: Label 'Net Weight Kg';
-        GrossWeightCaption: Label 'Gross Weight Kg';
+        NettWeightCaption: Label 'Net Weight Kg', Comment = 'DEU = "Netto Gewicht kg"';
+        GrossWeightCaption: Label 'Gross Weight Kg', Comment = 'DEU = "Brutto Gewicht kg"';
         TextSum: Label 'Total..........';
         BaseUnitOfMeasureCap: Label 'Unit';
-        BillToCustomerNo_Caption: Label 'Customer No.';
+        BillToCustomerNo_Caption: Label 'Customer No.', Comment = 'DEU = "Kundennr."';
+        LanguageMgt: Codeunit Language;
 
     procedure InitializeRequest(NoOfCopiesFrom: Integer; ShowInternalInfoFrom: Boolean; ArchiveDocumentFrom: Boolean; LogInteractionFrom: Boolean; PrintFrom: Boolean; DisplayAsmInfo: Boolean)
     begin

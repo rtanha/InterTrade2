@@ -2,9 +2,11 @@ report 50003 "Sales - Invoice (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Sales - Invoice Inter.rdlc';
-    Caption = 'Sales - Invoice';
+    Caption = 'Sales - Invoice', Comment = 'DEU = "Verkauf - Rechnung"';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
     PreviewMode = PrintLayout;
+    ApplicationArea = All;
+
 
     dataset
     {
@@ -12,7 +14,7 @@ report 50003 "Sales - Invoice (INT)"
         {
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
-            RequestFilterHeading = 'Posted Sales Invoice';
+            RequestFilterHeading = 'Posted Sales Invoice', Comment = 'DEU = "Geb. Verkaufsrechnung"';
             column(No_SalesInvHdr; "No.")
             {
             }
@@ -147,6 +149,10 @@ report 50003 "Sales - Invoice (INT)"
                     }
                     column(Company_RegistrationNo; CompanyInfo."Registration No.")
                     {
+                    }
+                    column(Company_USAccount_New; CompanyInfo."US Account (INT)")
+                    {
+
                     }
                     column(VATNoText; VATNoText)
                     {
@@ -931,6 +937,9 @@ report 50003 "Sales - Invoice (INT)"
             trigger OnAfterGetRecord()
             begin
                 // CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
+                CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");
+                FormatAddr.SetLanguageCode("Language Code");
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -1036,31 +1045,37 @@ report 50003 "Sales - Invoice (INT)"
             {
                 group(Optionen)
                 {
-                    Caption = 'Options';
+                    Caption = 'Options', Comment = 'DEU = "Optionen"';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'DEU = "Anzahl Kopie"';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'DEU = "Interne Informationen anzeigen"';
+                        ApplicationArea = All;
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'DEU = "Aktivitäten protokolieren"';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
                     }
                     field(DisplayAsmInformation; DisplayAssemblyInformation)
                     {
-                        Caption = 'Show Assembly Components';
+                        Caption = 'Show Assembly Components', Comment = 'DEU = "Montagekomponenten anzeigen"';
+                        ApplicationArea = All;
                     }
                     field(DisplayAdditionalFeeNote; DisplayAdditionalFeeNote)
                     {
-                        Caption = 'Show Additional Fee Note';
+                        Caption = 'Show Additional Fee Note', Comment = 'DEU = "Hinweis zu zusätzlicher Gebühr anzeigen"';
+                        ApplicationArea = All;
                     }
                     field(WithHeader; WithHeader)
                     {
-                        Caption = 'With Header';
+                        Caption = 'With Header', Comment = 'DEU = "Mit Briefkopf"';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -1079,6 +1094,7 @@ report 50003 "Sales - Invoice (INT)"
         begin
             InitLogInteraction;
             LogInteractionEnable := LogInteraction;
+            WithHeader := true;
         end;
     }
 
@@ -1123,13 +1139,13 @@ report 50003 "Sales - Invoice (INT)"
     end;
 
     var
-        Text000: Label 'Salesperson';
-        Text001: Label 'Total %1';
-        Text002: Label 'Total %1 Incl. VAT';
-        Text003: Label ' COPY';
-        Text004: Label 'Invoice %1 %2';
-        PageCaptionCap: Label 'Page %1 of %2';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text000: Label 'Salesperson', Comment = 'DEU = "Verkäufer"';
+        Text001: Label 'Total %1', Comment = 'DEU = "Total %1"';
+        Text002: Label 'Total %1 Incl. VAT', Comment = 'DEU = "Total %1 inkl. MwSt"';
+        Text003: Label ' COPY', Comment = 'DEU = "Kopie"';
+        Text004: Label 'Invoice %1 %2', Comment = 'DEU="Rechnung %1 %2"';
+        PageCaptionCap: Label 'Page %1 of %2', Comment = 'DEU = "Seite %1 von %2"';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'DEU = "Total %1 Exkl. MwSt"';
         GLSetup: Record "General Ledger Setup";
         ShipmentMethod: Record "Shipment Method";
         PaymentTerms: Record "Payment Terms";
@@ -1196,60 +1212,62 @@ report 50003 "Sales - Invoice (INT)"
         [InDataSet]
         LogInteractionEnable: Boolean;
         DisplayAssemblyInformation: Boolean;
-        PhoneNoCaptionLbl: Label 'Phone No.';
-        HomePageCaptionCap: Label 'Home Page';
-        VATRegNoCaptionLbl: Label 'VAT Reg. No.';
-        GiroNoCaptionLbl: Label 'Giro No.';
-        BankNameCaptionLbl: Label 'Bank';
-        BankAccountNoCaptionLbl: Label 'Account No.';
-        DueDateCaptionLbl: Label 'Due Date';
-        InvoiceNoCaptionLbl: Label 'Invoice No.';
-        PostingDateCaptionLbl: Label 'Invoice date';
+        PhoneNoCaptionLbl: Label 'Phone No.', Comment = 'DEU = "Telefonnr."';
+        HomePageCaptionCap: Label 'Home Page', Comment = 'DEU = "Homepage"';
+        VATRegNoCaptionLbl: Label 'VAT Reg. No.', Comment = 'DEU = "USt IdNr."';
+        GiroNoCaptionLbl: Label 'Giro No.', Comment = 'DEU = "Postgirokontonr."';
+        BankNameCaptionLbl: Label 'Bank', Comment = 'DEU = "Bankkonto"';
+        BankAccountNoCaptionLbl: Label 'Account No.', Comment = 'DEU = "Kontonr."';
+        DueDateCaptionLbl: Label 'Due Date', Comment = 'DEU = "Fälligkeitsdatum"';
+        InvoiceNoCaptionLbl: Label 'Invoice No.', Comment = 'DEU = "Rechnungsnr."';
+        PostingDateCaptionLbl: Label 'Invoice date', Comment = 'DEU = "Rechnungsdatum"';
         DimensionsCaptionLbl: Label 'Header Dimensions';
-        UnitPriceCaptionLbl: Label 'Pack. Price';
-        DiscountCaptionLbl: Label 'Discount %';
+        UnitPriceCaptionLbl: Label 'Pack. Price', Comment = 'DEU = "VK-Preis PE"';
+        DiscountCaptionLbl: Label 'Discount %', Comment = 'DEU = "Rabatt %"';
         AmountCaptionLbl: Label 'Amount';
-        VATClausesCap: Label 'VAT Clause';
-        PostedShipmentDateCaptionLbl: Label 'Posted Shipment Date';
-        SubtotalCaptionLbl: Label 'Subtotal';
-        PaymentDiscVATCaptionLbl: Label 'Payment Discount on VAT';
-        ShipmentCaptionLbl: Label 'Shipment';
-        LineDimensionsCaptionLbl: Label 'Line Dimensions';
-        VATAmntSpecificCaptionLbl: Label 'VAT Amount Specification';
-        InvDiscBaseAmtCaptionLbl: Label 'Invoice Discount Base Amount';
-        LineAmountCaptionLbl: Label 'Line Amount';
-        ShipToAddressCaptionLbl: Label 'Ship-to Address';
-        EMailCaptionLbl: Label 'E-Mail';
-        InvDiscountAmountCaptionLbl: Label 'Invoice Discount Amount';
-        VATCaptionLbl: Label 'VAT %';
-        VATBaseCaptionLbl: Label 'VAT Base';
-        VATAmountCaptionLbl: Label 'VAT Amount';
-        VATIdentifierCaptionLbl: Label 'VAT Identifier';
+        VATClausesCap: Label 'VAT Clause', Comment = 'DEU = "MwSt. Klausel"';
+        PostedShipmentDateCaptionLbl: Label 'Posted Shipment Date', Comment = 'DEU = "Gebuchtes Versanddatum"';
+        SubtotalCaptionLbl: Label 'Subtotal', Comment = 'DEU = "Zw. Summe"';
+        PaymentDiscVATCaptionLbl: Label 'Payment Discount on VAT', Comment = 'DEU = "Skonto auf MwSt"';
+        ShipmentCaptionLbl: Label 'Shipment', Comment = 'DEU = "Warenausgang"';
+        LineDimensionsCaptionLbl: Label 'Line Dimensions', Comment = 'DEU = "Zeilenrabatt"';
+        VATAmntSpecificCaptionLbl: Label 'VAT Amount Specification', Comment = 'DEU="MwSt.-Betrag - Spezifikation"';
+        InvDiscBaseAmtCaptionLbl: Label 'Invoice Discount Base Amount', Comment = 'DEU="Rechnungsrab.-Bem.grundlage"';
+        LineAmountCaptionLbl: Label 'Line Amount', Comment = 'DEU = "Zeilenbetrag"';
+        ShipToAddressCaptionLbl: Label 'Ship-to Address', Comment = 'DEU = "Lief. an Adresse"';
+        EMailCaptionLbl: Label 'E-Mail', Comment = 'DEU = "E-Mail"';
+        InvDiscountAmountCaptionLbl: Label 'Invoice Discount Amount', Comment = 'DEU = "Rechnungsrab.-Betrag"';
+        VATCaptionLbl: Label 'VAT %', Comment = 'DEU = "MwSt. %"';
+        VATBaseCaptionLbl: Label 'VAT Base', Comment = 'DEU = "MwSt. Bemessungsrundlage"';
+        VATAmountCaptionLbl: Label 'VAT Amount', Comment = 'DEU = "MwSt. Betrag"';
+        VATIdentifierCaptionLbl: Label 'VAT Identifier', Comment = 'DEU = "MwSt. Kennzeichen"';
         TotalCaptionLbl: Label 'Total';
-        PaymentTermsCaptionLbl: Label 'Payment Terms';
-        ShipmentMethodCaptionLbl: Label 'Shipment Terms';
-        DocumentDateCaptionLbl: Label 'Document Date';
+        PaymentTermsCaptionLbl: Label 'Payment Terms', Comment = 'DEU = "Zahlungsbedingungen"';
+        ShipmentMethodCaptionLbl: Label 'Shipment Terms', Comment = 'DEU = "Lieferbedingung"';
+        DocumentDateCaptionLbl: Label 'Document Date', Comment = 'DEU = "Belegdatum"';
         DisplayAdditionalFeeNote: Boolean;
-        FoodText: Label 'This sales Invoice has been concluded in accordance with the rules and conditions of the Waren-Verein der Hamburger Börse e.V., whose arbitrators or experts shall be competent for final settlement of all and any dispute arising hereform. Download and see the terms and conditions here: http://www.waren-verein.de';
+        FoodText: Label 'This sales Invoice has been concluded in accordance with the rules and conditions of the Waren-Verein der Hamburger Börse e.V., whose arbitrators or experts shall be competent for final settlement of all and any dispute arising hereform. Download and see the terms and conditions here: http://www.waren-verein.de'
+                         , Comment = 'DEU = "Diese Rechnung ist zu den Geschäftsbedingungen des Warenvereins der Hamburger  Börse e.V., dessen Schiedsgericht und Sachverständige zur endgültigen Entscheidung aller Streitigkeiten sein sollen, zustande gekommen Bei Bedarf können diese hier heruntergeladen und nachgelesen werden. http://www.waren-verein.de"';
         FonText: Label 'Telefon:';
-        FaxText: Label 'Fax:';
+        FaxText: Label 'Fax:', Comment = 'DEU = "Fax:"';
         WithHeader: Boolean;
         DocMgt: Codeunit "Document Management (INT)";
         UnitofMeasure: Record "Unit of Measure";
-        QuantityText: Label 'No. Package';
-        NettWeightCaption: Label 'Net Weight Kg';
-        GrossWeightCaption: Label 'Gross Weight Kg';
+        QuantityText: Label 'No. Package', comment = 'DEU="Packet No."';
+        NettWeightCaption: Label 'Net Weight Kg', Comment = 'DEU = "Netto Gewicht kg"';
+        GrossWeightCaption: Label 'Gross Weight Kg', Comment = 'DEU = "Brutto Gewicht kg"';
         Verschiffung: Text;
         // SeaRoute: Record Table50006;
-        DeliveryDateCatpion: Label 'Delivery Date:';
-        CountryOfOrgin: Label 'Origin: %1';
+        DeliveryDateCatpion: Label 'Delivery Date:', Comment = 'DEU = "Lieferdatum:"';
+        CountryOfOrgin: Label 'Origin: %1', Comment = 'DEU = "Ursprung: %1"';
         Country: Record "Country/Region";
         CountryOfOriginText: Text;
         InvoiceText: Text;
         TextSum: Label 'Total...................';
         BaseUnitOfMeasureCap: Label 'Unit';
-        BillToCustomerNo_Caption: Label 'Customer No.';
+        BillToCustomerNo_Caption: Label 'Customer No.', Comment = 'DEU = "Kundennr."';
         CustAdd: array[8] of Text[50];
+        LanguageMgt: Codeunit Language;
 
     procedure InitLogInteraction()
     begin

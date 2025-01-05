@@ -4,6 +4,7 @@ page 50002 "Document Text Subform (INT)"
     AutoSplitKey = true;
     PageType = ListPart;
     SourceTable = "Document Text";
+    ApplicationArea = All;
     layout
     {
         area(content)

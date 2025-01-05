@@ -1,8 +1,8 @@
 {
   "id": "23bd31ed-2895-45f7-b971-0d3ebf4884be",
   "name": "InterTrade",
-  "publisher": "Default Publisher",
-  "version": "1.0.0.0",
+  "publisher": "Reza Tanha",
+  "version": "25.0.0.2",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -10,16 +10,26 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id":"5afd1556-4470-43bf-aa2d-d58f23e00e90",      "name" : "Ftp Management",
+      "publisher" : "Vffice",
+      "version": "1.0.0.2" 
+    }
+  
+  ],
+
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "25.0.0.0",
+  "target": "Cloud",
   "idRanges": [
     {
       "from": 50000,
       "to": 50149
     }
   ],
+  
   "resourceExposurePolicy": {
     "allowDebugging": true,
     "allowDownloadingSource": true,
@@ -27,6 +37,8 @@
   },
   "runtime": "14.1",
   "features": [
-    "NoImplicitWith"
+       
   ]
+  
+  
 }
