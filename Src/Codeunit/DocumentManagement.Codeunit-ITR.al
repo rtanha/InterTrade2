@@ -352,6 +352,8 @@ codeunit 50000 "Document Management (INT)"
         CCs: List of [Text];
         DocType: Record "Document Type";
         MailSubject: Label '%1 %2';
+        EmailBody: Text;
+
     begin
         IF PrintDocument."E-mail" <> '' then begin
             TempBlob.CreateOutStream(OutStream);
@@ -362,7 +364,7 @@ codeunit 50000 "Document Management (INT)"
                 Recipients.Add(DocType."Email Receiver")
             else
                 Recipients.Add(PrintDocument."E-mail");
-            EmailMsG.Create(Recipients, StrSubstNo(MailSubject, DocType."Pdf Name", PrintDocument."Ref. No."), '', false);
+            EmailMsG.Create(Recipients, StrSubstNo(MailSubject, DocType."Pdf Name", PrintDocument."Ref. No."), ConvertBlobToText(DocType), true);
             TempBlob.CreateInStream(InsStream);
             EmailMsG.AddAttachment(StrSubstNo(MailSubject, DocType."Pdf Name", PrintDocument."Ref. No.") + '.pdf', 'pdf', InsStream);
             Email.OpenInEditor(EmailMsG);
@@ -376,6 +378,7 @@ codeunit 50000 "Document Management (INT)"
         Email: Codeunit Email;
         Recipients: List of [Text];
         MailSubject: Label '%1 %2';
+        EmailBocy: OutStream;
     begin
         DocType.get(PrintDocument."Document Type");
         IF DocType."Email Receiver" <> '' then
@@ -384,7 +387,7 @@ codeunit 50000 "Document Management (INT)"
             Recipients.Add(PrintDocument."E-mail");
         // EmailMsG.Create(Recipients, StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'Budy', true);
         // EmailMsG.AddAttachment(StrSubstNo(MailSubject, PrintDocument."Print of", PrintDocument."Ref. No."), 'pdf', InStream);
-        EmailMsG.Create(Recipients, DocType."Email Title", 'Budy', true);
+        EmailMsG.Create(Recipients, StrSubstNo(MailSubject, DocType."Email Title", PrintDocument."Ref. No."), ConvertBlobToText(DocType), true);
         EmailMsG.AddAttachment(AttachmentFileName, '', InStream);
         // Email.RetrieveEmails();
 
@@ -479,5 +482,36 @@ codeunit 50000 "Document Management (INT)"
     begin
         // FTPMgt.
     end;
+
+    procedure ConvertBlobToText(DocType: Record "Document Type"): Text
+    var
+        InStream: InStream;
+        TempText: Text;
+        TextField: Text;
+        UserSetup: Record "User Setup";
+        SalesPurcher: Record "Salesperson/Purchaser";
+    begin
+        // Sicherstellen, dass das BLOB-Feld nicht leer ist
+        DocType.CalcFields("Email Body Text");
+        if not DocType."Email Body Text".HasValue then
+            exit('');
+
+        // BLOB-Feld in einen InStream konvertieren
+        DocType."Email Body Text".CreateInStream(InStream, TextEncoding::UTF8);
+
+        // InStream in Text umwandeln
+        TempText := '';
+        while not InStream.EOS do begin
+            InStream.ReadText(TempText);
+            TextField := TextField + TempText;
+        end;
+        IF UserSetup.Get(UserId) then begin
+            IF UserSetup."Salespers./Purch. Code" <> '' then
+                IF Not SalesPurcher.Get(UserSetup."Salespers./Purch. Code") then
+                    SalesPurcher.Init;
+        end;
+        exit(StrSubstNo(TextField, SalesPurcher.Name, SalesPurcher."Phone No.", SalesPurcher."E-Mail"));
+    end;
+
 }
 
