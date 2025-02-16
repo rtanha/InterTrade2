@@ -96,19 +96,19 @@ report 50017 "Export Items to Excel"
         InStream: InStream;
         FileName: Text;
     begin
+        ExcelBuffer.CreateNewBook('Artikelliste');
         ExcelBuffer.WriteSheet('Artikelliste', CompanyName, UserId);
         // ExcelBuffer.CreateBook();
         TempBloob.CreateOutStream(OutStr);
+        ExcelBuffer.CloseBook();
         ExcelBuffer.SaveToStream(OutStr, false);
         TempBloob.CreateInStream(InStream);
-        FileName := 'Artikelliste.xls';
+        FileName := 'Artikelliste.xlsx';
         DownloadFromStream(InStream, 'Export', '', '', FileName);
-
-        // ExcelBuffer.OpenExcel();
-        // ExcelBuffer.CreateBookAndOpenExcel('Artikelliste','Report',CompanyName,UserId);
     end;
 
     var
         ExcelBuffer: Record "Excel Buffer" temporary;
+        CsvBuff: Record "CSV Buffer" temporary;
 }
 

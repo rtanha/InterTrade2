@@ -1,4 +1,4 @@
-pageextension 50009 "Item List Ext (INT)" extends "Item List"
+pageextension 50018 "Item Card Ext (INT)" extends "Item Card"
 {
     layout
     {
@@ -8,20 +8,7 @@ pageextension 50009 "Item List Ext (INT)" extends "Item List"
     actions
     {
         // Add changes to page actions here
-        addlast(processing)
-        {
-            action(ExportItems)
-            {
-                Caption = 'Export to Excel';
-                Image = Excel;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    Report.RunModal(50017, true, false, Rec);
-                end;
-            }
-        }
-        addlast("E&ntries")
+        addlast(Entries)
         {
             action("History (INT)")
             {
@@ -37,10 +24,8 @@ pageextension 50009 "Item List Ext (INT)" extends "Item List"
         }
     }
 
-    procedure GetItemFilter(): Text
-    begin
-        Exit(Rec.GetView());
-    end;
+    var
+        myInt: Integer;
 
     procedure OpenItemLegPage(Item: Record Item)
     var
@@ -95,5 +80,4 @@ pageextension 50009 "Item List Ext (INT)" extends "Item List"
         PAGE.RUNMODAL(Page::"Item Led. Entry History (INT)", ItemLegEntryTemp);
 
     end;
-
 }

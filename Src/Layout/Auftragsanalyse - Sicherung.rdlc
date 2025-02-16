@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -70,7 +70,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Belegnr.</Value>
+                                  <Value EvaluationMode="Auto">Belegnr.</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -102,7 +102,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Auftragsnr.</Value>
+                                  <Value EvaluationMode="Auto">Auftragsnr.</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -134,7 +134,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Verk. an Debitornr.</Value>
+                                  <Value EvaluationMode="Auto">Verk. an Debitornr.</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -166,7 +166,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Verk. an Name</Value>
+                                  <Value EvaluationMode="Auto">Verk. an Name</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -198,7 +198,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Einstandspreis</Value>
+                                  <Value EvaluationMode="Auto">Einstandspreis</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -230,7 +230,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Zu Abschlag</Value>
+                                  <Value EvaluationMode="Auto">Zu Abschlag</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -262,7 +262,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Selbstkosten</Value>
+                                  <Value EvaluationMode="Auto">Selbstkosten</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -294,7 +294,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>VK-Betrag</Value>
+                                  <Value EvaluationMode="Auto">VK-Betrag</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -326,7 +326,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>VK-Zuschlag</Value>
+                                  <Value EvaluationMode="Auto">VK-Zuschlag</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -358,7 +358,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Summe VK</Value>
+                                  <Value EvaluationMode="Auto">Summe VK</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -390,7 +390,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Gutschrift</Value>
+                                  <Value EvaluationMode="Auto">Gutschrift</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -422,7 +422,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Rohgewinn</Value>
+                                  <Value EvaluationMode="Auto">Rohgewinn</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -454,7 +454,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Prozent</Value>
+                                  <Value EvaluationMode="Auto">Prozent</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -493,7 +493,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!DocumentNo_SalesHeader.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!DocumentNo_SalesHeader.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -524,7 +524,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrderNo.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!OrderNo.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -555,7 +555,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!SalesToCustomerNo.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!SalesToCustomerNo.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -586,7 +586,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!CustomerName.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!CustomerName.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -617,7 +617,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!EinstandspreisZeile.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!EinstandspreisZeile.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -650,7 +650,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ZuAbschlagEKLines.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!ZuAbschlagEKLines.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -682,7 +682,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!Einstandspreis.Value + ReportItems!ZuAbschlag1.Value</Value>
+                                  <Value EvaluationMode="Auto">=ReportItems!Einstandspreis.Value + ReportItems!ZuAbschlag1.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -713,7 +713,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!SummeVKZeile.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!SummeVKZeile.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -745,7 +745,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ZuAbschlagVKLines.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!ZuAbschlagVKLines.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -777,7 +777,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!SummeVK.Value + Reportitems!SummeZuschlag.Value</Value>
+                                  <Value EvaluationMode="Auto">=ReportItems!SummeVK.Value + Reportitems!SummeZuschlag.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -808,7 +808,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Gutschrift.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Gutschrift.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -840,7 +840,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=-(ReportItems!SelbstkostenFeld.Value - ReportItems!SummeVKField.Value)</Value>
+                                  <Value EvaluationMode="Auto">=-(ReportItems!SelbstkostenFeld.Value - ReportItems!SummeVKField.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -871,7 +871,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(ReportItems!Rohgewinn.Value &lt;&gt; 0,ReportItems!Rohgewinn.Value / ReportItems!SummeVKField.Value,0)</Value>
+                                  <Value EvaluationMode="Auto">=IIF(ReportItems!Rohgewinn.Value &lt;&gt; 0,ReportItems!Rohgewinn.Value / ReportItems!SummeVKField.Value,0)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>0.00%</Format>
@@ -908,7 +908,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -939,7 +939,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="ANZ. PGC FR: " &amp;Format(Sum(Fields!ANZPGCFR.Value),"#,0.00;(#,0.00)")</Value>
+                                  <Value EvaluationMode="Auto">="ANZ. PGC FR: " &amp;Format(Sum(Fields!ANZPGCFR.Value),"#,0.00;(#,0.00)")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -973,7 +973,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="ANZ. PGC TK: "  &amp; Format(Sum(Fields!AnzPGCTK.Value),"#,0.00;(#,0.00)")</Value>
+                                  <Value EvaluationMode="Auto">="ANZ. PGC TK: "  &amp; Format(Sum(Fields!AnzPGCTK.Value),"#,0.00;(#,0.00)")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1007,7 +1007,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="ANZ. PGC TR: "&amp; Format(Sum(Fields!AnzPGCTR.Value),"#,0.00;(#,0.00)")</Value>
+                                  <Value EvaluationMode="Auto">="ANZ. PGC TR: "&amp; Format(Sum(Fields!AnzPGCTR.Value),"#,0.00;(#,0.00)")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1041,7 +1041,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Brutto Gewicht: "&amp; Format(Sum(Fields!BruttoGewicht.Value),"#,0.00;(#,0.00)")</Value>
+                                  <Value EvaluationMode="Auto">="Brutto Gewicht: "&amp; Format(Sum(Fields!BruttoGewicht.Value),"#,0.00;(#,0.00)")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1080,7 +1080,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1090,9 +1090,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox214</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1114,7 +1111,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1125,9 +1122,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox266</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1149,7 +1143,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ItemNo.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!ItemNo.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1159,9 +1153,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ItemNo</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1184,7 +1175,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!LotNo.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!LotNo.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1194,9 +1185,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>LotNo</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1219,7 +1207,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!EinstandspreisZeile.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!EinstandspreisZeile.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1231,9 +1219,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>EinstandspreisZeile</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1256,7 +1241,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!EinstandspreisAusartikel.Value = TRUE,"", Fields!ZuAbschlagEKLines.Value)</Value>
+                                  <Value EvaluationMode="Auto">=IIF(Fields!EinstandspreisAusartikel.Value = TRUE,"", Fields!ZuAbschlagEKLines.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1267,9 +1252,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ZuAbschlagZeile</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1292,7 +1274,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!EinstandspreisZeile.Value+Fields!ZuAbschlagEKLines.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!EinstandspreisZeile.Value+Fields!ZuAbschlagEKLines.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1303,9 +1285,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CostAmountZeile</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1328,7 +1307,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!SummeVKZeile.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!SummeVKZeile.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1339,9 +1318,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>SummeVKZeile</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1364,7 +1340,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ZuAbschlagVKLines.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!ZuAbschlagVKLines.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1375,9 +1351,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>SummeZuschlagZeile</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1400,7 +1373,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!SummeVKZeile.Value + ReportItems!SummeZuschlagZeile.Value</Value>
+                                  <Value EvaluationMode="Auto">=ReportItems!SummeVKZeile.Value + ReportItems!SummeZuschlagZeile.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>#,0.00</Format>
@@ -1410,9 +1383,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1435,7 +1405,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1445,9 +1415,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox101</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1469,7 +1436,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1479,9 +1446,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox225</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1503,7 +1467,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1513,9 +1477,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox226</rd:DefaultName>
-                          <Visibility>
-                            <ToggleItem>DocumentNo_SalesInvoiceLine</ToggleItem>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1542,7 +1503,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1573,7 +1534,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1605,7 +1566,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1636,7 +1597,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1667,7 +1628,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Color>=IIF(Fields!EinstandspreisAusartikel.Value = True,"Green","Black")</Color>
@@ -1699,7 +1660,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1730,7 +1691,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1761,7 +1722,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1792,7 +1753,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1823,7 +1784,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1854,7 +1815,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1885,7 +1846,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1916,7 +1877,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1952,7 +1913,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -1983,7 +1944,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2015,7 +1976,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2049,7 +2010,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Summe</Value>
+                                  <Value EvaluationMode="Auto">Summe</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2083,7 +2044,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!EinstandspreisZeile.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!EinstandspreisZeile.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2122,7 +2083,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ZuAbschlagEKLines.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!ZuAbschlagEKLines.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2160,7 +2121,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!Einstandspreis2.Value + ReportItems!ZuAbschlag2.Value</Value>
+                                  <Value EvaluationMode="Auto">=ReportItems!Einstandspreis2.Value + ReportItems!ZuAbschlag2.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2197,7 +2158,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!SummeVKZeile.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!SummeVKZeile.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2235,7 +2196,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ZuAbschlagVKLines.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!ZuAbschlagVKLines.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2273,7 +2234,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!SummeVK2.Value + ReportItems!SummeZuschlag2.Value</Value>
+                                  <Value EvaluationMode="Auto">=ReportItems!SummeVK2.Value + ReportItems!SummeZuschlag2.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2310,7 +2271,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Gutschrift.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!Gutschrift.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2348,7 +2309,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=-(ReportItems!SelbstkostenField2.Value - ReportItems!SummeVKField2.Value)</Value>
+                                  <Value EvaluationMode="Auto">=-(ReportItems!SelbstkostenField2.Value - ReportItems!SummeVKField2.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2385,7 +2346,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Microsoft.VisualBasic.Interaction.IIF(ReportItems!SummeRohgewinn.Value &lt;&gt; 0, ReportItems!SummeRohgewinn.Value / ReportItems!SummeVKField2.Value, 0)</Value>
+                                  <Value EvaluationMode="Auto">=Microsoft.VisualBasic.Interaction.IIF(ReportItems!SummeRohgewinn.Value &lt;&gt; 0, ReportItems!SummeRohgewinn.Value / ReportItems!SummeVKField2.Value, 0)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2423,7 +2384,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -2454,7 +2415,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2486,7 +2447,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Summe ANZ. PGC FR: "</Value>
+                                  <Value EvaluationMode="Auto">="Summe ANZ. PGC FR: "</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2522,7 +2483,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ANZPGCFR.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!ANZPGCFR.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2558,7 +2519,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2590,7 +2551,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2622,7 +2583,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2654,7 +2615,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2686,7 +2647,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2718,7 +2679,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2755,7 +2716,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -2786,7 +2747,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2818,7 +2779,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Summe ANZ. PGC TK: "</Value>
+                                  <Value EvaluationMode="Auto">="Summe ANZ. PGC TK: "</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2854,7 +2815,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!AnzPGCTK.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!AnzPGCTK.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2890,7 +2851,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2922,7 +2883,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2954,7 +2915,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2986,7 +2947,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3018,7 +2979,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3050,7 +3011,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3087,7 +3048,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -3118,7 +3079,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3150,7 +3111,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Summe ANZ. PGC TR: "</Value>
+                                  <Value EvaluationMode="Auto">="Summe ANZ. PGC TR: "</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3186,7 +3147,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!AnzPGCTR.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!AnzPGCTR.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3222,7 +3183,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3254,7 +3215,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3286,7 +3247,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3318,7 +3279,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3350,7 +3311,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3382,7 +3343,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3419,7 +3380,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -3450,7 +3411,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3482,7 +3443,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Summe Brutto Gewicht: "</Value>
+                                  <Value EvaluationMode="Auto">="Summe Brutto Gewicht: "</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3518,7 +3479,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!BruttoGewicht.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!BruttoGewicht.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3554,7 +3515,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3586,7 +3547,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3618,7 +3579,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3650,7 +3611,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3682,7 +3643,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3714,7 +3675,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -3852,7 +3813,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="Rohgewinn pro Auftrag"</Value>
+                      <Value EvaluationMode="Auto">="Rohgewinn pro Auftrag"</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                       </Style>
@@ -3883,7 +3844,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Companyname.Value, "DataSet_Result")</Value>
+                      <Value EvaluationMode="Auto">=First(Fields!Companyname.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                       </Style>
@@ -3915,7 +3876,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Globals!PageNumber</Value>
+                      <Value EvaluationMode="Auto">=Globals!PageNumber</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                       </Style>
@@ -3949,7 +3910,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!UserID.Value, "DataSet_Result")</Value>
+                      <Value EvaluationMode="Auto">=First(Fields!UserID.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                       </Style>
@@ -3981,7 +3942,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="Seite"</Value>
+                      <Value EvaluationMode="Auto">="Seite"</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                       </Style>
@@ -4013,7 +3974,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Today.Value, "DataSet_Result")</Value>
+                      <Value EvaluationMode="Auto">=First(Fields!Today.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <Format>d</Format>

@@ -1,6 +1,6 @@
 page 50009 "Document Type Card (INT)"
 {
-    PageType = Card;
+    PageType = Document;
     ApplicationArea = All;
     UsageCategory = Tasks;
     SourceTable = "Document Type";
@@ -109,23 +109,6 @@ page 50009 "Document Type Card (INT)"
                 {
                     ToolTip = 'Specifies the value of the Email Betreff field.', Comment = '%';
                 }
-                group("Email Body")
-                {
-                    Caption = 'Email Body';
-                    field(EmailBody; EmailBodyText)
-                    {
-                        ApplicationArea = All;
-                        Importance = Additional;
-                        MultiLine = true;
-                        ShowCaption = false;
-
-                        trigger OnValidate()
-                        begin
-                            Rec.SetEmailBody(EmailBodyText);
-                            ;
-                        end;
-                    }
-                }
                 field("FTP Adresse"; Rec."FTP Adresse")
                 {
                     ToolTip = 'Specifies the value of the FTP Adresse field.', Comment = '%';
@@ -137,6 +120,25 @@ page 50009 "Document Type Card (INT)"
                 field("FTP User"; Rec."FTP User")
                 {
                     ToolTip = 'Specifies the value of the FTP User field.', Comment = '%';
+                }
+            }
+            group("Email Body")
+            {
+                Caption = 'Email Body';
+                field(EmailBody; EmailBodyText)
+                {
+                    ApplicationArea = All;
+                    // Importance = Additional;
+                    MultiLine = true;
+                    // ShowCaption = false;
+                    ExtendedDatatype = RichContent;
+                    Caption = 'Message';
+                    ToolTip = 'Specifies the content of the email.';
+
+                    trigger OnValidate()
+                    begin
+                        Rec.SetEmailBody(EmailBodyText);
+                    end;
                 }
             }
         }

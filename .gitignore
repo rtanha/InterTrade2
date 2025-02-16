@@ -9,7 +9,7 @@
 
 # Ignore generated files during publishing
 launch.json
-
+app.json
 # Ignore dependency cache
 .dependencycache/
 
@@ -37,5 +37,8 @@ obj/
 *.dal
 *.runtime
 *.alx
+*/cache/ 
+**/*.cache
+Cache*
 
 .gitignore

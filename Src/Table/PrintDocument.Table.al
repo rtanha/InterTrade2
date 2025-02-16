@@ -81,8 +81,9 @@ table 50004 "Print Document"
             TableRelation = IF ("Print of" = CONST("Purchase Document"),
                                 "Receiver Type" = FILTER(<> Location)) Vendor."No."
             ELSE IF ("Print of" = CONST("Sales Document"),
-                                         "Receiver Type" = FILTER(<> Location)) Customer."No."
-            ELSE IF ("Receiver Type" = CONST(Location)) Location.Code
+                                         "Receiver Type" = FILTER("Buy/Sell" | Shipment)) Customer."No."
+            Else if ("Print of" = Const("Sales document"), "Receiver Type" = Filter("Shipping Agent")) Vendor."No."
+            ELSE IF ("Print of" = Const("Sales document"), "Receiver Type" = CONST(Location)) Location.Code
             ELSE IF ("Print of" = CONST("Purch Invoice"),
                                                   "Receiver Type" = FILTER(<> Location)) Vendor."No."
             ELSE IF ("Print of" = CONST("Sales Invoice"),
@@ -119,21 +120,62 @@ table 50004 "Print Document"
 
                     "Print of"::"Sales Document", "Print of"::"Sales Invoice":
                         begin
-                            Customer.Get("Receiver No.");
-                            "Receiver No." := Customer."No.";
-                            Name := Customer.Name;
-                            "Name 2" := Customer."Name 2";
-                            Address := Customer.Address;
-                            "Address 2" := Customer."Address 2";
-                            City := Customer.City;
-                            "Post Code" := Customer."Post Code";
-                            County := Customer.County;
-                            "Country Code" := Customer."Country/Region Code";
-                            Contact := Customer.Contact;
-                            "Language Code" := Customer."Language Code";
-                            "E-mail" := Customer."E-Mail";
-                            "Fax No." := Customer."Fax No.";
-                            Priority := Customer.Priority;
+                            case "Receiver Type" of
+                                "Receiver Type"::"Buy/Sell", "Receiver Type"::Shipment:
+                                    begin
+                                        Customer.Get("Receiver No.");
+                                        "Receiver No." := Customer."No.";
+                                        Name := Customer.Name;
+                                        "Name 2" := Customer."Name 2";
+                                        Address := Customer.Address;
+                                        "Address 2" := Customer."Address 2";
+                                        City := Customer.City;
+                                        "Post Code" := Customer."Post Code";
+                                        County := Customer.County;
+                                        "Country Code" := Customer."Country/Region Code";
+                                        Contact := Customer.Contact;
+                                        "Language Code" := Customer."Language Code";
+                                        "E-mail" := Customer."E-Mail";
+                                        "Fax No." := Customer."Fax No.";
+                                        Priority := Customer.Priority;
+                                    end;
+                                "Receiver Type"::"Shipping Agent":
+                                    begin
+                                        Vendor.Get("Receiver No.");
+                                        "Receiver No." := Vendor."No.";
+                                        Name := Vendor.Name;
+                                        "Name 2" := Vendor."Name 2";
+                                        Address := Vendor.Address;
+                                        "Address 2" := Vendor."Address 2";
+                                        City := Vendor.City;
+                                        "Post Code" := Vendor."Post Code";
+                                        County := Vendor.County;
+                                        "Country Code" := Vendor."Country/Region Code";
+                                        Contact := Vendor.Contact;
+                                        "Language Code" := Vendor."Language Code";
+                                        "E-mail" := Vendor."E-Mail";
+                                        "Fax No." := Vendor."Fax No.";
+                                        Priority := 0;
+
+                                    end;
+                                "Receiver Type"::Location:
+                                    begin
+                                        Location.Get("Receiver No.");
+                                        Name := Location.Name;
+                                        "Name 2" := Location."Name 2";
+                                        Address := Location.Address;
+                                        "Address 2" := Location."Address 2";
+                                        City := Location.City;
+                                        "Post Code" := Location."Post Code";
+                                        County := Location.County;
+                                        "Country Code" := Location."Country/Region Code";
+                                        Contact := Location.Contact;
+                                        "Language Code" := '';
+                                        "E-mail" := Location."E-Mail";
+                                        "Fax No." := Location."Fax No.";
+                                        Priority := 0;
+                                    end;
+                            end;
                         end;
                 end;
             end;
@@ -379,6 +421,8 @@ table 50004 "Print Document"
     procedure GetFieldFromPurchaseHeader()
     var
         PurchaseHeader: Record "Purchase Header";
+        Vendor: Record Vendor;
+        ShipToAdress: Record "Ship-to Address";
     begin
         TestField("Ref. No.");
         PurchaseHeader.Get("Ref. Type", "Ref. No.");
@@ -386,6 +430,7 @@ table 50004 "Print Document"
 
             "Receiver Type"::"Buy/Sell":
                 begin
+                    Vendor.Get(PurchaseHeader."Buy-from Vendor No.");
                     "Receiver No." := PurchaseHeader."Buy-from Vendor No.";
                     Name := PurchaseHeader."Buy-from Vendor Name";
                     "Name 2" := PurchaseHeader."Buy-from Vendor Name 2";
@@ -397,13 +442,14 @@ table 50004 "Print Document"
                     "Country Code" := PurchaseHeader."Buy-from Country/Region Code";
                     Contact := PurchaseHeader."Buy-from Contact";
                     "Language Code" := PurchaseHeader."Language Code";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "E-mail" := Vendor."E-Mail";
+                    "Fax No." := Vendor."Fax No.";
                     Priority := 0;
                 end;
 
             "Receiver Type"::"Pay/Bill":
                 begin
+                    Vendor.Get(PurchaseHeader."Pay-to Vendor No.");
                     "Receiver No." := PurchaseHeader."Pay-to Vendor No.";
                     Name := PurchaseHeader."Pay-to Name";
                     "Name 2" := PurchaseHeader."Pay-to Name 2";
@@ -415,13 +461,14 @@ table 50004 "Print Document"
                     "Country Code" := PurchaseHeader."Pay-to Country/Region Code";
                     Contact := PurchaseHeader."Pay-to Contact";
                     "Language Code" := PurchaseHeader."Language Code";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "E-mail" := Vendor."E-Mail";
+                    "Fax No." := Vendor."Fax No.";
                     Priority := 0;
                 end;
 
             "Receiver Type"::Shipment:
                 begin
+                    ShipToAdress.get(PurchaseHeader."Sell-to Customer No.", PurchaseHeader."Ship-to Code");
                     "Receiver No." := PurchaseHeader."Ship-to Code";
                     Name := PurchaseHeader."Ship-to Name";
                     "Name 2" := PurchaseHeader."Ship-to Name 2";
@@ -433,8 +480,8 @@ table 50004 "Print Document"
                     "Country Code" := PurchaseHeader."Ship-to Country/Region Code";
                     Contact := PurchaseHeader."Ship-to Contact";
                     "Language Code" := PurchaseHeader."Language Code";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "E-mail" := ShipToAdress."E-Mail";
+                    "Fax No." := ShipToAdress."Fax No.";
                     Priority := 0;
                 end;
 
@@ -522,6 +569,8 @@ table 50004 "Print Document"
     procedure GetFieldFromSalesHeader()
     var
         SalesHeader: Record "Sales Header";
+        Customer: Record Customer;
+        ShipToAddress: Record "Ship-to Address";
     begin
         TestField("Ref. No.");
         SalesHeader.Get("Ref. Type", "Ref. No.");
@@ -540,14 +589,15 @@ table 50004 "Print Document"
                     "Country Code" := SalesHeader."Sell-to Country/Region Code";
                     Contact := SalesHeader."Sell-to Contact";
                     "Language Code" := SalesHeader."Language Code";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "E-mail" := SalesHeader."Sell-to E-Mail";
+                    "Fax No." := SalesHeader.GetSellToCustomerFaxNo();
                     Priority := 0;
                 end;
 
 
             "Receiver Type"::"Pay/Bill":
                 begin
+                    Customer.Get(SalesHeader."Bill-to Customer No.");
                     "Receiver No." := SalesHeader."Bill-to Customer No.";
                     Name := SalesHeader."Bill-to Name";
                     "Name 2" := SalesHeader."Bill-to Name 2";
@@ -559,13 +609,14 @@ table 50004 "Print Document"
                     "Country Code" := SalesHeader."Bill-to Country/Region Code";
                     Contact := SalesHeader."Bill-to Contact";
                     "Language Code" := SalesHeader."Language Code";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "E-mail" := Customer."E-Mail";
+                    "Fax No." := Customer."Fax No.";
                     Priority := 0;
                 end;
 
             "Receiver Type"::Shipment:
                 begin
+                    ShipToAddress.Get(SalesHeader."Sell-to Customer No.", SalesHeader."Ship-to Code");
                     "Receiver No." := SalesHeader."Ship-to Code";
                     Name := SalesHeader."Ship-to Name";
                     "Name 2" := SalesHeader."Ship-to Name 2";
@@ -576,8 +627,9 @@ table 50004 "Print Document"
                     County := SalesHeader."Ship-to County";
                     "Country Code" := SalesHeader."Ship-to Country/Region Code";
                     Contact := SalesHeader."Ship-to Contact";
-                    "E-mail" := '';
-                    "Fax No." := '';
+                    "Language Code" := SalesHeader."Language Code";
+                    "E-mail" := ShipToAddress."E-Mail";
+                    "Fax No." := ShipToAddress."Fax No.";
                     Priority := 0;
                 end;
 

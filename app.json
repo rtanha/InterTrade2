@@ -2,7 +2,7 @@
   "id": "23bd31ed-2895-45f7-b971-0d3ebf4884be",
   "name": "InterTrade",
   "publisher": "Reza Tanha",
-  "version": "25.0.0.2",
+  "version": "25.0.0.12",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -12,11 +12,12 @@
   "logo": "",
   "dependencies": [
     {
-      "id":"5afd1556-4470-43bf-aa2d-d58f23e00e90",      "name" : "Ftp Management",
+      "id":"5afd1556-4470-43bf-aa2d-d58f23e00e90",      
+      "name" : "Ftp Management",
       "publisher" : "Vffice",
       "version": "1.0.0.2" 
     }
-  
+    
   ],
 
   "screenshots": [],

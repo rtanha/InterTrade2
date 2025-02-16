@@ -223,5 +223,26 @@ codeunit 50001 "Intertrade subscriber (INT)"
         Rec."Transaction Type" := Vend."Transaction Type (INT)";
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Report Selections", OnGetEmailAddressOnAfterGetEmailAddressForCust, '', false, false)]
+    local procedure "Report Selections_OnGetEmailAddressOnAfterGetEmailAddressForCust"(ReportUsage: Enum "Report Selection Usage"; RecordVariant: Variant; var TempBodyReportSelections: Record "Report Selections" temporary; var EmailAddress: Text[250]; CustNo: Code[20])
+    var
+        Customer: Record Customer;
+    begin
+        if Customer.Get(CustNo) then
+            if Customer."Invoice eMail (INT)" <> '' then
+                EmailAddress := Customer."Invoice eMail (INT)";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Report Selections", OnBeforeGetEmailAddress, '', false, false)]
+    local procedure "Report Selections_OnBeforeGetEmailAddress"(ReportUsage: Option; RecordVariant: Variant; var TempBodyReportSelections: Record "Report Selections" temporary; var EmailAddress: Text[250]; var IsHandled: Boolean; CustNo: Code[20])
+    var
+        Customer: Record Customer;
+    begin
+        if Customer.Get(CustNo) then
+            if Customer."Invoice eMail (INT)" <> '' then begin
+                EmailAddress := Customer."Invoice eMail (INT)";
+                IsHandled := true;
+            end;
+    end;
 
 }
