@@ -29,6 +29,12 @@ tableextension 50019 "Sales Cr.Memo Header Ext INT" extends "Sales Cr.Memo Heade
             CaptionML = ENU = 'Delivery Time To (INT)', DEU = 'Lieferzeit bis';
             DataClassification = CustomerContent;
         }
+        field(50012; "Exported To GL/Entry (INT)"; Boolean)
+        {
+            CaptionML = ENU = 'Exported To GL/Entry', DEU = 'Exportiert nach GL/Buchung';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
 
     }
 

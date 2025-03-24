@@ -553,7 +553,7 @@ report 50018 "VK-Preisliste Intertrade"
                 VATText := Text000
             else
                 VATText := Text001;
-
+            UnitOfMeasure := "Unit of Measure Code";
             ConvertPricetoUoM(UnitOfMeasure, "Unit Price");
             ConvertPriceLCYToFCY("Currency Code", "Unit Price");
             if "Unit of Measure Code" = '' then

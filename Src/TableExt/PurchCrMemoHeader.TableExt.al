@@ -1,12 +1,13 @@
-tableextension 50003 "Sales Ship. Header Ext (INT)" extends "Sales Shipment Header"
+tableextension 50025 "Purch Cr. Memo Header INT" extends "Purch. Cr. Memo Hdr."
 {
     fields
     {
         // Add changes to table fields here
-        field(50000; "Shipment Method City (INT)"; Text[50])
+        field(50000; "Shipping Agent Code (INT)"; Code[10])
         {
-            CaptionML = ENU = 'Place of Shipment Method (INT)', DEU = 'Lieferbedingungsort';
+            CaptionML = ENU = 'Shipping Agent Code (INT)', DEU = 'Zustellercode';
             DataClassification = CustomerContent;
+            TableRelation = "Shipping Agent";
         }
         field(50001; "Container No. (INT)"; Text[50])
         {
@@ -15,18 +16,13 @@ tableextension 50003 "Sales Ship. Header Ext (INT)" extends "Sales Shipment Head
         }
         field(50002; "Shipping (INT)"; Code[10])
         {
-            CaptionML = ENU = 'Shipping (INT)', DEU = 'Verschiffung';
+            CaptionML = ENU = 'Contract Shipping (INT)', DEU = 'Verschiffung';
             DataClassification = CustomerContent;
             TableRelation = "Sea Route";
         }
-        field(50010; "Delivery Time From (INT)"; Time)
+        field(50003; "Shipment Method City (INT)"; Text[50])
         {
-            CaptionML = ENU = 'Delivery Time From (INT)', DEU = 'Lieferzeit von';
-            DataClassification = CustomerContent;
-        }
-        field(50011; "Delivery Time To (INT)"; Time)
-        {
-            CaptionML = ENU = 'Delivery Time To (INT)', DEU = 'Lieferzeit bis';
+            CaptionML = ENU = 'Place of Shipment Method (INT)', DEU = 'Lieferbedingungsort';
             DataClassification = CustomerContent;
         }
         field(50012; "Exported To GL/Entry (INT)"; Boolean)

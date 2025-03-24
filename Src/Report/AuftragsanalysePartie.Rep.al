@@ -89,5 +89,12 @@ report 50015 "Auftragsanalyse Partie"
         customer: Record Customer;
         Vendor: Record Vendor;
         "Filter": Text;
+
+    trigger OnPreReport()
+    var
+        DocumentMgt: Codeunit "Document Management (INT)";
+    begin
+        DocumentMgt.CopyBatchNoToGLEntry();
+    end;
 }
 

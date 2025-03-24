@@ -15,6 +15,19 @@
             "schemaUpdateMode": "ForceSync"
         },
         {
+            "name": "Microsoft cloud sandbox2",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "sandbox2",
+            "startupObjectType": "Page",
+            "breakOnError": "All",
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "ForceSync"
+        },
+        {
             "name": "Microsoft Live",
             "type": "al",
             "request": "launch",

@@ -2,7 +2,12 @@ codeunit 50000 "Document Management (INT)"
 {
     // version Intertrade
 
-    Permissions = TableData "Item Ledger Entry" = rimd;
+    Permissions = TableData "Item Ledger Entry" = rimd,
+                    TableData "G/L Entry" = rimd,
+                    TableData "Sales Invoice Header" = rimd,
+                    TableData "Sales Cr.Memo Header" = rimd,
+                    TableData "Purch. Inv. Header" = rimd,
+                    TableData "Purch. Cr. Memo Hdr." = rimd;
 
     trigger OnRun()
     begin
@@ -511,6 +516,109 @@ codeunit 50000 "Document Management (INT)"
                     SalesPurcher.Init;
         end;
         exit(StrSubstNo(TextField, SalesPurcher.Name, SalesPurcher."Phone No.", SalesPurcher."E-Mail"));
+    end;
+
+    procedure CopyBatchNoToGLEntry()
+    var
+        GLEntry: Record "G/L Entry";
+        SalesInvoiceLine: Record "Sales Invoice Line";
+        PurchInvoiceLine: Record "Purch. Inv. Line";
+        SalesCrMemoLine: Record "Sales Cr.Memo Line";
+        PurchCrMemoLine: Record "Purch. Cr. Memo Line";
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        PurchInvoiceHeader: Record "Purch. Inv. Header";
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+        BatchNo: Code[20];
+        SalesInvHeader: record "Sales Invoice Header";
+        PurchInvHeader: record "Purch. Inv. Header";
+        SalesCrMemoHeader2: Record "Sales Cr.Memo Header";
+        PurchCrMemoHeader2: Record "Purch. Cr. Memo Hdr.";
+    begin
+        BatchNo := '';
+        SalesInvoiceHeader.Setrange("Exported To GL/Entry (INT)", false);
+        IF SalesInvoiceHeader.FindSet() then
+            repeat
+                SalesInvoiceLine.Setrange("Document No.", SalesInvoiceHeader."No.");
+                SalesInvoiceLine.SetFilter("Batch No. (INT)", '<>%1', '');
+                SalesInvoiceLine.SetFilter(Type, '<>%1', SalesInvoiceLine.Type::" ");
+                SalesInvoiceLine.SetFilter("No.", '<>%1', '');
+                IF SalesInvoiceLine.FindSet() then
+                    BatchNo := SalesInvoiceLine."Batch No. (INT)";
+                IF BatchNo <> '' then begin
+                    GLEntry.SetRange("Document Type", GLEntry."Document Type"::Invoice);
+                    GLEntry.SetRange("Document No.", SalesInvoiceLine."Document No.");
+                    GLEntry.SetRange("Posting Date", SalesInvoiceLine."Posting Date");
+                    IF GLEntry.FindSet() then
+                        GLEntry.ModifyAll("Batch No. (INT)", BatchNo);
+                    SalesInvHeader.GET(SalesInvoiceHeader.RecordId);
+                    SalesInvHeader."Exported To GL/Entry (INT)" := true;
+                    SalesInvHeader.MODIFY;
+                end;
+            until SalesInvoiceHeader.Next() = 0;
+        BatchNo := '';
+        SalesCrMemoHeader.SetRange("Exported To GL/Entry (INT)", false);
+        IF SalesCrMemoHeader.FindSet() then
+            repeat
+                SalesCrMemoLine.SetRange("Document No.", SalesCrMemoHeader."No.");
+                SalesCrMemoLine.SetFilter("Batch No. (INT)", '<>%1', '');
+                SalesCrMemoLine.SetFilter(Type, '<>%1', SalesCrMemoLine.Type::" ");
+                SalesCrMemoLine.SetFilter("No.", '<>%1', '');
+                IF SalesCrMemoLine.FindSet() then
+                    BatchNo := SalesCrMemoLine."Batch No. (INT)";
+                IF BatchNo <> '' then begin
+                    GLEntry.SetRange("Document Type", GLEntry."Document Type"::"Credit Memo");
+                    GLEntry.SetRange("Document No.", SalesCrMemoLine."Document No.");
+                    GLEntry.SetRange("Posting Date", SalesCrMemoLine."Posting Date");
+                    IF GLEntry.FindSet() then
+                        GLEntry.ModifyAll("Batch No. (INT)", BatchNo);
+                    SalesCrMemoHeader2.GET(SalesCrMemoHeader.RecordId);
+                    SalesCrMemoHeader2."Exported To GL/Entry (INT)" := true;
+                    SalesCrMemoHeader2.MODIFY;
+                end;
+            until SalesCrMemoHeader.Next() = 0;
+        BatchNo := '';
+        PurchInvoiceHeader.Setrange("Exported To GL/Entry (INT)", false);
+        IF PurchInvoiceHeader.FindSet() then
+            repeat
+                PurchInvoiceLine.Setrange("Document No.", PurchInvoiceHeader."No.");
+                PurchInvoiceLine.SetFilter("Batch No. (INT)", '<>%1', '');
+                PurchInvoiceLine.SetFilter(Type, '<>%1', PurchInvoiceLine.Type::" ");
+                PurchInvoiceLine.SetFilter("No.", '<>%1', '');
+                IF PurchInvoiceLine.FindSet() then
+                    BatchNo := PurchInvoiceLine."Batch No. (INT)";
+                IF BatchNo <> '' then begin
+                    GLEntry.SetRange("Document Type", GLEntry."Document Type"::Invoice);
+                    GLEntry.SetRange("Document No.", PurchInvoiceLine."Document No.");
+                    GLEntry.SetRange("Posting Date", PurchInvoiceLine."Posting Date");
+                    IF GLEntry.FindSet() then
+                        GLEntry.ModifyAll("Batch No. (INT)", BatchNo);
+                    PurchInvHeader.GET(PurchInvoiceHeader.RecordId);
+                    PurchInvHeader."Exported To GL/Entry (INT)" := true;
+                    PurchInvHeader.MODIFY;
+                end;
+            until PurchInvoiceHeader.Next() = 0;
+        BatchNo := '';
+        PurchCrMemoHeader.SetRange("Exported To GL/Entry (INT)", false);
+        IF PurchCrMemoHeader.FindSet() then
+            repeat
+                PurchCrMemoLine.Setrange("Document No.", PurchCrMemoHeader."No.");
+                PurchCrMemoLine.SetFilter("Batch No. (INT)", '<>%1', '');
+                PurchCrMemoLine.SetFilter(Type, '<>%1', PurchCrMemoLine.Type::" ");
+                PurchCrMemoLine.SetFilter("No.", '<>%1', '');
+                IF PurchCrMemoLine.FindSet() then
+                    BatchNo := PurchCrMemoLine."Batch No. (INT)";
+                IF BatchNo <> '' then begin
+                    GLEntry.SetRange("Document Type", GLEntry."Document Type"::"Credit Memo");
+                    GLEntry.SetRange("Document No.", PurchCrMemoLine."Document No.");
+                    GLEntry.SetRange("Posting Date", PurchCrMemoLine."Posting Date");
+                    IF GLEntry.FindSet() then
+                        GLEntry.ModifyAll("Batch No. (INT)", BatchNo);
+                    PurchCrMemoHeader2.GET(PurchCrMemoHeader.RecordId);
+                    PurchCrMemoHeader2."Exported To GL/Entry (INT)" := true;
+                    PurchCrMemoHeader2.MODIFY;
+                end;
+            until PurchCrMemoHeader.Next() = 0;
     end;
 
 }

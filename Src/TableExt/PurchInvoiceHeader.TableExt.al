@@ -25,6 +25,12 @@ tableextension 50022 "Purch. Invoice Header INT" extends "Purch. Inv. Header"
             CaptionML = ENU = 'Place of Shipment Method (INT)', DEU = 'Lieferbedingungsort';
             DataClassification = CustomerContent;
         }
+        field(50012; "Exported To GL/Entry (INT)"; Boolean)
+        {
+            CaptionML = ENU = 'Exported To GL/Entry', DEU = 'Exportiert nach GL/Buchung';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
 
     }
 
