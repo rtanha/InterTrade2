@@ -365,6 +365,8 @@ codeunit 50000 "Document Management (INT)"
             RecRef.GetTable(PrintDocument);
             DocType.GET(PrintDocument."Document Type");
             Report.SaveAs(DocType."Report ID", '', ReportFormat::Pdf, OutStream, RecRef);
+            //hier will ich den PDF mit neuen Tools auf SFTP Server exportieren. Wie geht das?
+
             IF DocType."Email Receiver" <> '' then
                 Recipients.Add(DocType."Email Receiver")
             else
@@ -413,6 +415,7 @@ codeunit 50000 "Document Management (INT)"
         Filename: text;
         ServerFilename: Text;
         AttachFileName: Label '%1 %2';
+        ExportCsvDatei: Codeunit "Export CSV Datei";
 
     begin
         TempBlob.CreateOutStream(OutStream);
@@ -420,7 +423,8 @@ codeunit 50000 "Document Management (INT)"
         DocType.GET(PrintDocument."Document Type");
         Report.SaveAs(DocType."Report ID", '', ReportFormat::Pdf, OutStream, RecRef);
         TempBlob.CreateInStream(InsStream);
-        SendFileAsEmailAttach(PrintDocument, InsStream, StrSubstNo(AttachmentFileName, DocType."Pdf Name", PrintDocument."Ref. No.") + '.pdf');
+        ExportCsvDatei.SendFileToFTPServer(TempBlob, StrSubstNo(AttachmentFileName, DocType."Pdf Name", PrintDocument."Ref. No.", 'pdf'), 'DEHN');
+        // SendFileAsEmailAttach(PrintDocument, InsStream, StrSubstNo(AttachmentFileName, DocType."Pdf Name", PrintDocument."Ref. No.") + '.pdf');
         /*
         ServerFilename := DocType."FTP Adresse" + DocType."Pdf Name" + '.pdf';
         Filename := FileMgt.GetFileName(ServerFilename);
@@ -481,12 +485,6 @@ codeunit 50000 "Document Management (INT)"
 
     // end;
 
-    procedure TestFtp()
-    var
-        FTPMgt: Codeunit "VFF FTP Management";
-    begin
-        // FTPMgt.
-    end;
 
     procedure ConvertBlobToText(DocType: Record "Document Type"): Text
     var

@@ -91,19 +91,19 @@ codeunit 50006 "Export CSV Datei"
 
                 IF NOT SalesLine.FINDSET THEN
                     ERROR(STRSUBSTNO('Kein Datensatz für export gefunden, %1', SalesLine.GETFILTER("Location Code")));
-                WITH SalesHeader DO BEGIN
-                    IF NOT ShipmentMethod.GET("Shipment Method Code") THEN
-                        ShipmentMethod.INIT;
-                    CLEAR(FieldCap);
-                    InitCaptions(1);
-                    //Kopfüberschriften schreiben
-                    FOR i := 1 TO 19 DO
-                        IF i < 19 THEN
-                            Line += Sep + FieldCap[i] + Sep + Trenz
-                        ELSE
-                            Line += Sep + FieldCap[i] + Sep;
-                    WriteInFile(Line);
-                END;
+                // WITH SalesHeader DO BEGIN
+                IF NOT ShipmentMethod.GET(SalesHeader."Shipment Method Code") THEN
+                    ShipmentMethod.INIT;
+                CLEAR(FieldCap);
+                InitCaptions(1);
+                //Kopfüberschriften schreiben
+                FOR i := 1 TO 19 DO
+                    IF i < 19 THEN
+                        Line += Sep + FieldCap[i] + Sep + Trenz
+                    ELSE
+                        Line += Sep + FieldCap[i] + Sep;
+                WriteInFile(Line);
+                // END;
                 IF SalesLine.FINDSET THEN
                     REPEAT
                         //Zeilenwerte schreiben
@@ -128,42 +128,42 @@ codeunit 50006 "Export CSV Datei"
                         END;
                         Customer.GET(SalesHeader."Sell-to Customer No.");
                         SalesLineTemp.INSERT;
-                        WITH SalesHeader DO BEGIN
-                            FieldValue[1] := "No.";
-                            FieldValue[2] := '';
-                            FieldValue[3] := SalesHeader."Ship-to Name" + ' ' + SalesHeader."Ship-to Name 2";
-                            FieldValue[4] := SalesHeader."Ship-to Address" + '  ' + SalesHeader."Ship-to Address 2";
-                            FieldValue[5] := SalesHeader."Ship-to Post Code";
-                            FieldValue[6] := SalesHeader."Ship-to City";
-                            IF SalesHeader."Ship-to Country/Region Code" = '' THEN
-                                FieldValue[7] := 'DE'
+                        // WITH SalesHeader DO BEGIN
+                        FieldValue[1] := SalesHeader."No.";
+                        FieldValue[2] := '';
+                        FieldValue[3] := SalesHeader."Ship-to Name" + ' ' + SalesHeader."Ship-to Name 2";
+                        FieldValue[4] := SalesHeader."Ship-to Address" + '  ' + SalesHeader."Ship-to Address 2";
+                        FieldValue[5] := SalesHeader."Ship-to Post Code";
+                        FieldValue[6] := SalesHeader."Ship-to City";
+                        IF SalesHeader."Ship-to Country/Region Code" = '' THEN
+                            FieldValue[7] := 'DE'
+                        ELSE
+                            FieldValue[7] := SalesHeader."Ship-to Country/Region Code";
+                        FieldValue[8] := Customer."Phone No."; //Phon
+                        FieldValue[9] := Customer."E-Mail";    //Email
+                        FieldValue[10] := ''; //Versandart
+                        FieldValue[11] := ''; //Sonderversandart
+                        FieldValue[12] := SalesLineTemp."No.";
+                        FieldValue[13] := FORMAT(SalesLineTemp."Line No.");
+                        FieldValue[14] := ''; //Bereitstelldatum_pos
+                        FieldValue[15] := FORMAT(SalesLineTemp.Quantity);
+                        FieldValue[16] := SalesLineTemp."Special Order Purchase No.";
+                        FieldValue[17] := FORMAT(SalesLineTemp."Planned Delivery Date");
+                        FieldValue[18] := FORMAT(SalesLineTemp."Gross Weight");
+                        IF SalesLineTemp."Location Code" = 'A-OZL' THEN
+                            FieldValue[19] := '1'
+                        ELSE IF SalesLineTemp."Location Code" = 'DEHN' THEN
+                            FieldValue[19] := '0'
+                        ELSE
+                            FieldValue[19] := '';
+                        Line := '';
+                        FOR i := 1 TO 19 DO
+                            IF i < 19 THEN
+                                Line += Sep + FieldValue[i] + Sep + Trenz
                             ELSE
-                                FieldValue[7] := SalesHeader."Ship-to Country/Region Code";
-                            FieldValue[8] := Customer."Phone No."; //Phon
-                            FieldValue[9] := Customer."E-Mail";    //Email
-                            FieldValue[10] := ''; //Versandart
-                            FieldValue[11] := ''; //Sonderversandart
-                            FieldValue[12] := SalesLineTemp."No.";
-                            FieldValue[13] := FORMAT(SalesLineTemp."Line No.");
-                            FieldValue[14] := ''; //Bereitstelldatum_pos
-                            FieldValue[15] := FORMAT(SalesLineTemp.Quantity);
-                            FieldValue[16] := SalesLineTemp."Special Order Purchase No.";
-                            FieldValue[17] := FORMAT(SalesLineTemp."Planned Delivery Date");
-                            FieldValue[18] := FORMAT(SalesLineTemp."Gross Weight");
-                            IF SalesLineTemp."Location Code" = 'A-OZL' THEN
-                                FieldValue[19] := '1'
-                            ELSE IF SalesLineTemp."Location Code" = 'DEHN' THEN
-                                FieldValue[19] := '0'
-                            ELSE
-                                FieldValue[19] := '';
-                            Line := '';
-                            FOR i := 1 TO 19 DO
-                                IF i < 19 THEN
-                                    Line += Sep + FieldValue[i] + Sep + Trenz
-                                ELSE
-                                    Line += Sep + FieldValue[i] + Sep;
-                            WriteInFile(Line);
-                        END;
+                                Line += Sep + FieldValue[i] + Sep;
+                        WriteInFile(Line);
+                    // END;
                     UNTIL SalesLine.NEXT = 0;
             END;
         END ELSE IF PrintDocument."Print of" = PrintDocument."Print of"::"Purchase Document" THEN BEGIN
@@ -202,10 +202,10 @@ codeunit 50006 "Export CSV Datei"
                         PurchLine.SETRANGE("Location Code", PrintDocument."Location Code");
                 IF NOT PurchLine.FINDSET THEN
                     ERROR(STRSUBSTNO('Kein Datensatz in für export gefunden, %1', PurchLine.GETFILTER("Location Code")));
-                WITH PurchHeader DO BEGIN
-                    IF NOT ShipmentMethod.GET("Shipment Method Code") THEN
-                        ShipmentMethod.INIT;
-                END;
+                // WITH PurchHeader DO BEGIN
+                IF NOT ShipmentMethod.GET(PurchHeader."Shipment Method Code") THEN
+                    ShipmentMethod.INIT;
+                // END;
                 IF PurchLine.FINDSET THEN
                     REPEAT
                         CheckValueTest(PurchLine, PurchLine.FIELDNO("No."));
@@ -223,40 +223,40 @@ codeunit 50006 "Export CSV Datei"
                             PurchLineTemp."Planned Receipt Date" := 0D;
                         END;
                         PurchLineTemp.INSERT;
-                        WITH PurchHeader DO BEGIN
-                            FieldValue[1] := "No.";
-                            FieldValue[2] := '';
-                            FieldValue[3] := PurchHeader."Buy-from Vendor No.";
-                            FieldValue[4] := PurchHeader."Buy-from Vendor Name";
-                            FieldValue[5] := PurchHeader."Buy-from Address" + ' ' + PurchHeader."Buy-from Address 2" + ' ' + PurchHeader."Pay-to Post Code" + ' ' + PurchHeader."Buy-from City";
-                            FieldValue[6] := ''; //Bestellart
-                            FieldValue[7] := FORMAT(PurchHeader."Requested Receipt Date"); //Lieferdatum
-                            FieldValue[8] := ''; //Liefername
-                            FieldValue[9] := ''; //Liefer_Strasse
-                            FieldValue[10] := ''; //Liefer_PLZ
-                            FieldValue[11] := ''; //Liefer_Ort
-                            FieldValue[12] := ''; //Liefer_LCode
-                            FieldValue[13] := ''; //ContainerNr
-                            FieldValue[14] := ''; //ReferenzNr
-                            FieldValue[15] := ''; //ZollreferenzNr
-                            FieldValue[16] := ''; //VerdichtungsNr.
-                            FieldValue[17] := FORMAT(PurchLineTemp."Line No."); //BestellPos
-                            FieldValue[18] := PurchLineTemp."No."; //ArtikelNr
-                            FieldValue[19] := FORMAT(PurchLineTemp.Quantity);
-                            IF PurchLineTemp."Location Code" = 'A-OZL' THEN
-                                FieldValue[20] := '1'
-                            ELSE IF PurchLineTemp."Location Code" = 'DEHN' THEN
-                                FieldValue[20] := '0'
+                        // WITH PurchHeader DO BEGIN
+                        FieldValue[1] := PurchHeader."No.";
+                        FieldValue[2] := '';
+                        FieldValue[3] := PurchHeader."Buy-from Vendor No.";
+                        FieldValue[4] := PurchHeader."Buy-from Vendor Name";
+                        FieldValue[5] := PurchHeader."Buy-from Address" + ' ' + PurchHeader."Buy-from Address 2" + ' ' + PurchHeader."Pay-to Post Code" + ' ' + PurchHeader."Buy-from City";
+                        FieldValue[6] := ''; //Bestellart
+                        FieldValue[7] := FORMAT(PurchHeader."Requested Receipt Date"); //Lieferdatum
+                        FieldValue[8] := ''; //Liefername
+                        FieldValue[9] := ''; //Liefer_Strasse
+                        FieldValue[10] := ''; //Liefer_PLZ
+                        FieldValue[11] := ''; //Liefer_Ort
+                        FieldValue[12] := ''; //Liefer_LCode
+                        FieldValue[13] := ''; //ContainerNr
+                        FieldValue[14] := ''; //ReferenzNr
+                        FieldValue[15] := ''; //ZollreferenzNr
+                        FieldValue[16] := ''; //VerdichtungsNr.
+                        FieldValue[17] := FORMAT(PurchLineTemp."Line No."); //BestellPos
+                        FieldValue[18] := PurchLineTemp."No."; //ArtikelNr
+                        FieldValue[19] := FORMAT(PurchLineTemp.Quantity);
+                        IF PurchLineTemp."Location Code" = 'A-OZL' THEN
+                            FieldValue[20] := '1'
+                        ELSE IF PurchLineTemp."Location Code" = 'DEHN' THEN
+                            FieldValue[20] := '0'
+                        ELSE
+                            FieldValue[19] := '';
+                        Line := '';
+                        FOR i := 1 TO 20 DO
+                            IF i < 20 THEN
+                                Line += Sep + FieldValue[i] + Sep + Trenz
                             ELSE
-                                FieldValue[19] := '';
-                            Line := '';
-                            FOR i := 1 TO 20 DO
-                                IF i < 20 THEN
-                                    Line += Sep + FieldValue[i] + Sep + Trenz
-                                ELSE
-                                    Line += Sep + FieldValue[i] + Sep;
-                            WriteInFile(Line);
-                        END;
+                                Line += Sep + FieldValue[i] + Sep;
+                        WriteInFile(Line);
+                    // END;
                     UNTIL PurchLine.NEXT = 0;
             END;
         END;
@@ -270,6 +270,7 @@ codeunit 50006 "Export CSV Datei"
     local procedure UploadToFTPServer(var PrintDoc: Record "Print Document"; AttachFilename: Text)
     var
         DocType: Record "Document Type";
+    // MessageMgt: Codeunit MessageManagement;
     begin
         IF DocType.GET(PrintDoc."Document Type") THEN BEGIN
             // DocType.TESTFIELD(DocType."FTP Adresse");
@@ -279,9 +280,53 @@ codeunit 50006 "Export CSV Datei"
             // UploadFile(ServerFileName,DocType."FTP Adresse" + FileName,DocType."FTP User",DocType."FTP Kennwort");
             SaveLocal(PrintDoc, ServerFileName, FileName);
 
+            // processDelNot.Run();
+            //MessageMgt.ExportFile();
+            //Todo FTP Upload hier einfügen
         END;
     end;
 
+    procedure SendFileToFTPServer(var LTempBlob: Codeunit "Temp Blob"; FileName: Text; MXPartner: Text)
+    var
+        MessageEntry: Record "CHGMXCMessage Entry";
+        MXCMessageDef: Record "CHGMXCMessage Def.";
+        MessageType: enum "CHGMXCMessage Type";
+        MXManagement: Codeunit "CHGMXCManagement";
+    // Tempblob: Codeunit "Temp Blob";
+    begin
+        MessageType := MessageType::Shipment;
+        MXCMessageDef.Get(MXPartner, MessageType, MXCMessageDef.Direction::Outbound);
+        MXCMessageDef.TestField(Enabled);
+        CreateNewMessageEntry(MXCMessageDef, MessageType, MessageEntry);
+
+        // Tempblob.CreateInStream(InStr);
+
+        MessageEntry.SetContent(LTempBlob);
+        MessageEntry."File Name" := FileName;
+        MessageEntry.Modify();
+        REPORT.RunModal(REPORT::"CHGMXCMessage Import/Export", false, true, MXCMessageDef);
+        MXManagement.ExportMsgEntryToFileStorage(MessageEntry);
+        if MXCMessageDef."Export Directly" then begin
+            MXCMessageDef.SetRecFilter();
+            MXCMessageDef.SetFilter(Usage, '%1', MXCMessageDef.Usage::Lobster);
+            REPORT.RunModal(REPORT::"CHGMXCMessage Upload/Download", false, true, MXCMessageDef);
+        end;
+    end;
+
+    local procedure CreateNewMessageEntry(var MXCMessageDef: Record "CHGMXCMessage Def."; MessageType: enum "CHGMXCMessage Type"; var MessageEntry: Record "CHGMXCMessage Entry")
+    var
+        CHGMXCManagement: Codeunit "CHGMXCManagement";
+        NewEntryNo: Integer;
+    begin
+        NewEntryNo := 0;
+        MXCMessageDef.TestField("Message Type", MessageType);
+
+        NewEntryNo := CHGMXCManagement.InsertExportMessageEntry(MXCMessageDef."Partner Code", MXCMessageDef."Message Type");
+        MessageEntry.Get(NewEntryNo);
+        MessageEntry.Status := MessageEntry.Status::New;
+        // MessageEntry."File Name" := FileName;
+        MessageEntry.Modify();
+    end;
 
     local procedure SetFileName(Name: Text): Text
     begin
@@ -502,7 +547,8 @@ codeunit 50006 "Export CSV Datei"
     begin
         tempblob.CreateInStream(Instr, TextEncoding::UTF8);
         // DownloadFromStream(Instr, '', '', '', FileName);
-        DocMgt.SendFileAsEmailAttach(PrintDoc, instr, FileName);
+        SendFileToFTPServer(Tempblob, FileName, 'DEHN');
+        // DocMgt.SendFileAsEmailAttach(PrintDoc, instr, FileName);
     end;
 
     procedure OpenFile(): Boolean
@@ -557,7 +603,8 @@ codeunit 50006 "Export CSV Datei"
                     PrintDocument2.FindSet();
                     DocumentType.Get(PrintDocument."Document Type");
                     PrintDocument2.SetRecFilter();
-                    AttachmentFilePath := DocMgt.downloadPrintDocReport(PrintDocument2, DocumentType."Ship. Lines File Name");
+                    AttachmentFilePath := DocMgt.downloadPrintDocReport(PrintDocument2, ' %1 %2.%3');
+                    // UploadToFTPServer(PrintDocument, DocumentType."Pdf Name");
 
                 end;
         end;
