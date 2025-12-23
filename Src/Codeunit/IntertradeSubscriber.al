@@ -245,4 +245,77 @@ codeunit 50001 "Intertrade subscriber (INT)"
             end;
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Report Distribution Management", OnAfterGetFullDocumentTypeText, '', false, false)]
+    local procedure "Report Distribution Management_OnAfterGetFullDocumentTypeText"(DocumentVariant: Variant; var DocumentTypeText: Text[50]; var DocumentRecordRef: RecordRef)
+    var
+        SalesHeader: Record "Sales Header";
+        PurchaseHeader: Record "Purchase Header";
+        TranslationHelper: Codeunit "Translation Helper";
+        RepDistribMgt: Codeunit "Report Distribution Management";
+        LanguageCode: Code[10];
+        ReminderReportName: Label 'Zahlungserinnerung';
+        OrderConfirm: Label 'Order Confirmation';
+    begin
+        LanguageCode := RepDistribMgt.GetDocumentLanguageCode(DocumentVariant);
+        case DocumentRecordRef.Number of
+            DATABASE::"Sales Invoice Header":
+                exit;
+            DATABASE::"Sales Cr.Memo Header":
+                exit;
+            Database::"Sales Shipment Header":
+                exit;
+            Database::"Purch. Inv. Header":
+                exit;
+            Database::"Purch. Cr. Memo Hdr.":
+                exit;
+            DATABASE::Job:
+                exit;
+            Database::"Return Receipt Header":
+                exit;
+            Database::"Issued Reminder Header":
+                IF (LanguageCode = '') or (LanguageCode = 'DE') THEN
+                    DocumentTypeText := ReminderReportName;
+
+            Database::"Issued Fin. Charge Memo Header":
+                exit;
+            DATABASE::"Sales Header":
+                begin
+                    DocumentRecordRef.SetTable(SalesHeader);
+                    case SalesHeader."Document Type" of
+                        SalesHeader."Document Type"::Invoice:
+                            exit;
+                        SalesHeader."Document Type"::"Credit Memo":
+                            exit;
+                        SalesHeader."Document Type"::Quote:
+                            exit;
+                        SalesHeader."Document Type"::Order:
+                            exit;
+                        SalesHeader."Document Type"::"Blanket Order":
+                            exit;
+                        SalesHeader."Document Type"::"Return Order":
+                            exit;
+                    end;
+                end;
+            DATABASE::"Purchase Header":
+                begin
+                    DocumentRecordRef.SetTable(PurchaseHeader);
+                    case PurchaseHeader."Document Type" of
+                        PurchaseHeader."Document Type"::Invoice:
+                            exit;
+                        PurchaseHeader."Document Type"::"Credit Memo":
+                            exit;
+                        PurchaseHeader."Document Type"::Quote:
+                            exit;
+                        PurchaseHeader."Document Type"::Order:
+                            exit;
+                        PurchaseHeader."Document Type"::"Blanket Order":
+                            exit;
+                        PurchaseHeader."Document Type"::"Return Order":
+                            exit;
+                    end;
+                end;
+        end;
+    end;
+
+
 }

@@ -11343,6 +11343,9 @@ End Function</Code>
         <Field Name="Sales_Header___Shipment_Date_Caption">
           <DataField>Sales_Header___Shipment_Date_Caption</DataField>
         </Field>
+        <Field Name="ShipmentMethodCity_SalesHeader">
+          <DataField>ShipmentMethodCity_SalesHeader</DataField>
+        </Field>
         <Field Name="Order_No_Caption">
           <DataField>Order_No_Caption</DataField>
         </Field>

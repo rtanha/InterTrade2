@@ -29,6 +29,12 @@ tableextension 50004 "Sales Inv. Header Ext (INT)" extends "Sales Invoice Header
             CaptionML = ENU = 'Delivery Time To (INT)', DEU = 'Lieferzeit bis';
             DataClassification = CustomerContent;
         }
+        field(50012; "Exported To GL/Entry (INT)"; Boolean)
+        {
+            CaptionML = ENU = 'Exported To GL/Entry', DEU = 'Exportiert nach GL/Buchung';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
     }
 
     keys

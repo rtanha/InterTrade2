@@ -186,6 +186,9 @@ report 50009 "Sales - Quote (INT)"
                     column(Sales_Header___Shipment_Date_Caption; Sales_Header___Shipment_Date_CaptionLbl)
                     {
                     }
+                    column(ShipmentMethodCity_SalesHeader; "Sales Header"."Shipment Method Code")
+                    {
+                    }
                     column(Order_No_Caption; Order_No_CaptionLbl)
                     {
                     }

@@ -361,6 +361,7 @@ report 50001 "Lieferschein (INT)"
                 else if not Vendor.Get(ShippingAgent."Vendor No.") then
                     Vendor.Init;
             end;
+
         }
     }
 
