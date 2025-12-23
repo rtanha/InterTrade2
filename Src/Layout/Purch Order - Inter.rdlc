@@ -13028,6 +13028,9 @@ End Function
         <Field Name="RequestedReceiptDate_PurchHeader_Description">
           <DataField>RequestedReceiptDate_PurchHeader_Description</DataField>
         </Field>
+        <Field Name="ShipmentMethod_City_PurchHeader">
+          <DataField>ShipmentMethod_City_PurchHeader</DataField>
+        </Field>
         <Field Name="DimText">
           <DataField>DimText</DataField>
         </Field>

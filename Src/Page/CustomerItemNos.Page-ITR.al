@@ -2,6 +2,7 @@ page 50008 "Customer Item Nos (INT)"
 {
     PageType = List;
     SourceTable = "Customer Item No.";
+    ApplicationArea = All;
 
     layout
     {

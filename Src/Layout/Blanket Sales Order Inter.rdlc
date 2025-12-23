@@ -10522,6 +10522,9 @@ End Function</Code>
         <Field Name="RequestDeliveryDate_SalesHeader">
           <DataField>RequestDeliveryDate_SalesHeader</DataField>
         </Field>
+        <Field Name="ShipmentMethodCity_SalesHeader">
+          <DataField>ShipmentMethodCity_SalesHeader</DataField>
+        </Field>
         <Field Name="RequestDeliveryDate_Caption_SalesHeader">
           <DataField>RequestDeliveryDate_Caption_SalesHeader</DataField>
         </Field>
@@ -10848,6 +10851,9 @@ End Function</Code>
         </Field>
         <Field Name="GrossWeightCaption">
           <DataField>GrossWeightCaption</DataField>
+        </Field>
+        <Field Name="UnitOfMeasureBase">
+          <DataField>UnitOfMeasureBase</DataField>
         </Field>
         <Field Name="DimText_Control82">
           <DataField>DimText_Control82</DataField>

@@ -2,6 +2,7 @@ report 50000 "Freistellungsauftrag (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Freistellungsauftrag.rdlc';
+    ApplicationArea = All;
 
     dataset
     {

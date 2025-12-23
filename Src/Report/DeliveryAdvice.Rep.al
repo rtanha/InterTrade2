@@ -2,6 +2,7 @@ report 50002 "Delivery Advice (INT)"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src\Layout\Delivery Advice.rdlc';
+    ApplicationArea = All;
 
     dataset
     {

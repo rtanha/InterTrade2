@@ -9821,7 +9821,7 @@ Cstr(Fields!ShipmentMethodCaption.Value) + Chr(177) +
 Cstr(Fields!CompanyInfo_Fax_No_.Value) +Chr(177) +
 Cstr(Fields!Company_IBAN.Value) + Chr(177) +
 Cstr(Fields!Company_Swift.Value) + Chr(177) +
-Cstr(fields!Company_USAccount.Value) + Chr(177) +
+Cstr(Fields!Company_USAccount_New.Value) + Chr(177) +
 Cstr(Fields!ShipmentMethodCity.Value) + Chr(177) +
 Cstr(Fields!ReferenceText.Value) + Chr(177) +
 Cstr(Fields!Verschiffung.Value)
@@ -9837,6 +9837,7 @@ Cstr(Fields!Verschiffung.Value)
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
+                                          <rd:Selected>true</rd:Selected>
                                         </CellContents>
                                       </TablixCell>
                                     </TablixCells>
@@ -12051,6 +12052,9 @@ End Function</Code>
         </Field>
         <Field Name="Company_RegistrationNo">
           <DataField>Company_RegistrationNo</DataField>
+        </Field>
+        <Field Name="Company_USAccount_New">
+          <DataField>Company_USAccount_New</DataField>
         </Field>
         <Field Name="VATNoText">
           <DataField>VATNoText</DataField>

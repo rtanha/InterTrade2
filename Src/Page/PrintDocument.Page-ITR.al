@@ -137,10 +137,12 @@ page 50001 "Print Document (INT)"
                 trigger OnAction()
                 var
                     DocumentType: Record "Document Type";
+                    PrintDocument: Record "Print Document";
                 begin
-                    DocumentType.Get(Rec."Document Type");
-                    Rec.SetRecFilter();
-                    Report.RunModal(DocumentType."Report ID", true, true, Rec);
+                    PrintDocument.Get(Rec.RecordId);
+                    DocumentType.Get(PrintDocument."Document Type");
+                    PrintDocument.SetRecFilter();
+                    Report.RunModal(DocumentType."Report ID", true, true, PrintDocument);
                 end;
             }
             action(Email)
@@ -151,8 +153,26 @@ page 50001 "Print Document (INT)"
                 trigger OnAction()
                 var
                     DocMgt: Codeunit "Document Management (INT)";
+                    PrintDocument: Record "Print Document";
                 begin
-                    DocMgt.EmailPrintDocument(Rec);
+                    PrintDocument.Get(Rec.RecordId);
+                    PrintDocument.SetRecFilter();
+                    DocMgt.EmailPrintDocument(PrintDocument);
+                end;
+            }
+            action(CSVFile)
+            {
+                ApplicationArea = All;
+                Image = Attach;
+                CaptionML = ENU = 'Send csv-File', DEU = 'csv-Datei senden';
+                trigger OnAction()
+                var
+                    CsvExp: Codeunit "Export CSV Datei";
+                    PrintDocument: Record "Print Document";
+                begin
+                    PrintDocument.Get(Rec.RecordId);
+                    PrintDocument.SetRecFilter();
+                    CsvExp.CsvExport(PrintDocument);
                 end;
             }
         }

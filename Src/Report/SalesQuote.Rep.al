@@ -4,6 +4,8 @@ report 50009 "Sales - Quote (INT)"
     RDLCLayout = './Src\Layout\Sales - Quote INTER.rdlc';
     Caption = 'Sales - Quote';
     PreviewMode = PrintLayout;
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {
@@ -1391,6 +1393,9 @@ report 50009 "Sales - Quote (INT)"
             trigger OnAfterGetRecord()
             begin
                 // CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault("Language Code");
+                CurrReport.FormatRegion := LanguageMgt.GetFormatRegionOrDefault("Format Region");
+                FormatAddr.SetLanguageCode("Language Code");
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -1504,14 +1509,17 @@ report 50009 "Sales - Quote (INT)"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1523,6 +1531,7 @@ report 50009 "Sales - Quote (INT)"
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1533,10 +1542,12 @@ report 50009 "Sales - Quote (INT)"
                     field(ShowAssemblyComponents; DisplayAssemblyInfo)
                     {
                         Caption = 'Show Assembly Components';
+                        ApplicationArea = All;
                     }
                     field(WithHeader; WithHeader)
                     {
                         Caption = 'With Header';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -1759,6 +1770,7 @@ report 50009 "Sales - Quote (INT)"
         TextSum: Label 'Total..........';
         BaseUnitOfMeasureCap: Label 'Unit';
         BillToCustomerNo_Caption: Label 'Customer No.';
+        LanguageMgt: Codeunit Language;
 
     procedure InitializeRequest(NoOfCopiesFrom: Integer; ShowInternalInfoFrom: Boolean; ArchiveDocumentFrom: Boolean; LogInteractionFrom: Boolean; PrintFrom: Boolean; DisplayAsmInfo: Boolean)
     begin

@@ -116,6 +116,37 @@ table 50003 "Document Type"
         {
             DataClassification = ToBeClassified;
         }
+        field(50010; "Item Export File Name"; Text[250])
+        {
+            Caption = 'Artikel Export Dateiname';
+            DataClassification = CustomerContent;
+        }
+        field(50011; "Ship. Lines File Name"; Text[250])
+        {
+            Caption = 'Lieferzeilen Export Dateiname';
+            DataClassification = CustomerContent;
+        }
+        field(50020; "Email Body Text"; Blob)
+        {
+            Caption = 'Email Nachricht';
+            DataClassification = CustomerContent;
+        }
+        field(50021; "Email Title"; Text[100])
+        {
+            Caption = 'Email Betreff';
+            DataClassification = CustomerContent;
+        }
+        field(50022; "Send Type"; Option)
+        {
+            DataClassification = CustomerContent;
+            OptionMembers = " ","FTP","Email";
+            OptionCaption = ' ,FTP,Email';
+        }
+        field(50023; "Email Receiver"; Text[100])
+        {
+            Caption = 'Email Receiver';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -136,6 +167,26 @@ table 50003 "Document Type"
     begin
         if not Confirm('Wollen Sie wirklich diesen Belegart löschen', false) then
             Error('Vorgang wurde abgebrochen');
+    end;
+
+    procedure SetEmailBody(NewEmailBody: Text)
+    var
+        OutStream: OutStream;
+    begin
+        Clear("Email Body Text");
+        "Email Body Text".CreateOutStream(OutStream, TEXTENCODING::UTF8);
+        OutStream.WriteText(NewEmailBody);
+        Modify();
+    end;
+
+    procedure GetEmailBody() EmailBody: Text
+    var
+        TypeHelper: Codeunit "Type Helper";
+        InStream: InStream;
+    begin
+        CalcFields("Email Body Text");
+        "Email Body Text".CreateInStream(InStream, TEXTENCODING::UTF8);
+        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Email Body Text")));
     end;
 }
 
