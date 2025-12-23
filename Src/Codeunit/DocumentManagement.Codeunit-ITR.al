@@ -619,5 +619,36 @@ codeunit 50000 "Document Management (INT)"
             until PurchCrMemoHeader.Next() = 0;
     end;
 
+    procedure ConvertBlobToText(DocType: Record "Document Type"): Text
+    var
+        InStream: InStream;
+        TempText: Text;
+        TextField: Text;
+        UserSetup: Record "User Setup";
+        SalesPurcher: Record "Salesperson/Purchaser";
+    begin
+        // Sicherstellen, dass das BLOB-Feld nicht leer ist
+        DocType.CalcFields("Email Body Text");
+        if not DocType."Email Body Text".HasValue then
+            exit('');
+
+        // BLOB-Feld in einen InStream konvertieren
+        DocType."Email Body Text".CreateInStream(InStream, TextEncoding::UTF8);
+
+        // InStream in Text umwandeln
+        TempText := '';
+        while not InStream.EOS do begin
+            InStream.ReadText(TempText);
+            TextField := TextField + TempText;
+        end;
+        IF UserSetup.Get(UserId) then begin
+            IF UserSetup."Salespers./Purch. Code" <> '' then
+                IF Not SalesPurcher.Get(UserSetup."Salespers./Purch. Code") then
+                    SalesPurcher.Init;
+        end;
+        exit(StrSubstNo(TextField, SalesPurcher.Name, SalesPurcher."Phone No.", SalesPurcher."E-Mail"));
+
+    end;
+
 }
 
