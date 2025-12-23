@@ -1,8 +1,6 @@
 .alpackages/
 .vscode/
 *.app
-launch.json
-app.json
 .dependencycache/
 *.dal
 *.runtime
