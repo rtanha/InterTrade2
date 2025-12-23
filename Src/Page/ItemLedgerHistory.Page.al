@@ -19,150 +19,150 @@ page 50010 "Item Led. Entry History (INT)"
         {
             repeater(Control1)
             {
-                field(PostingDate; "Posting Date")
+                field(PostingDate; Rec."Posting Date")
                 {
                 }
-                field(EntryType; "Entry Type")
+                field(EntryType; Rec."Entry Type")
                 {
                 }
-                field(DocumentType; "Document Type")
+                field(DocumentType; Rec."Document Type")
                 {
                 }
-                field(DocumentNo; "Document No.")
+                field(DocumentNo; Rec."Document No.")
                 {
                 }
-                field(DocumentLineNo; "Document Line No.")
-                {
-                    Visible = false;
-                }
-                field(CountryRegionCode; "Country/Region Code")
-                {
-                }
-                field(ItemNo; "Item No.")
-                {
-                }
-                field(VariantCode; "Variant Code")
+                field(DocumentLineNo; Rec."Document Line No.")
                 {
                     Visible = false;
                 }
-                field(Description; Description)
+                field(CountryRegionCode; Rec."Country/Region Code")
                 {
                 }
-                field(ReturnReasonCode; "Return Reason Code")
+                field(ItemNo; Rec."Item No.")
                 {
-                    Visible = false;
                 }
-                field(GlobalDimension1Code; "Global Dimension 1 Code")
-                {
-                    Visible = false;
-                }
-                field(GlobalDimension2Code; "Global Dimension 2 Code")
+                field(VariantCode; Rec."Variant Code")
                 {
                     Visible = false;
                 }
-                field(ExpirationDate; "Expiration Date")
+                field(Description; Rec.Description)
+                {
+                }
+                field(ReturnReasonCode; Rec."Return Reason Code")
                 {
                     Visible = false;
                 }
-                field(SerialNo; "Serial No.")
+                field(GlobalDimension1Code; Rec."Global Dimension 1 Code")
                 {
                     Visible = false;
                 }
-                field(LotNo; "Lot No.")
+                field(GlobalDimension2Code; Rec."Global Dimension 2 Code")
                 {
                     Visible = false;
                 }
-                field(LocationCode; "Location Code")
+                field(ExpirationDate; Rec."Expiration Date")
+                {
+                    Visible = false;
+                }
+                field(SerialNo; Rec."Serial No.")
+                {
+                    Visible = false;
+                }
+                field(LotNo; Rec."Lot No.")
+                {
+                    Visible = false;
+                }
+                field(LocationCode; Rec."Location Code")
                 {
                 }
-                field(UnitOfMeasureCode; "Unit of Measure Code")
+                field(UnitOfMeasureCode; Rec."Unit of Measure Code")
                 {
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                 }
-                field(InvoicedQuantity; "Invoiced Quantity")
+                field(InvoicedQuantity; Rec."Invoiced Quantity")
                 {
                     Visible = true;
                 }
-                field(RemainingQuantity; "Remaining Quantity")
+                field(RemainingQuantity; Rec."Remaining Quantity")
                 {
                     Visible = true;
                 }
-                field(ShippedQtyNotReturned; "Shipped Qty. Not Returned")
+                field(ShippedQtyNotReturned; Rec."Shipped Qty. Not Returned")
                 {
                     Visible = false;
                 }
-                field(ReservedQuantity; "Reserved Quantity")
+                field(ReservedQuantity; Rec."Reserved Quantity")
                 {
                     Visible = false;
                 }
-                field(QtyPerUnitOfMeasure; "Qty. per Unit of Measure")
+                field(QtyPerUnitOfMeasure; Rec."Qty. per Unit of Measure")
                 {
                     Visible = false;
                 }
-                field(SalesAmountExpected; "Sales Amount (Expected)")
+                field(SalesAmountExpected; Rec."Sales Amount (Expected)")
                 {
                     Visible = false;
                 }
-                field(SalesAmountActual; "Sales Amount (Actual)")
+                field(SalesAmountActual; Rec."Sales Amount (Actual)")
                 {
                 }
-                field(CostAmountExpected; "Cost Amount (Expected)")
-                {
-                    Visible = false;
-                }
-                field(CostAmountActual; "Cost Amount (Actual)")
-                {
-                }
-                field(CostAmountNonInvtbl; "Cost Amount (Non-Invtbl.)")
-                {
-                }
-                field(CostAmountExpectedACY; "Cost Amount (Expected) (ACY)")
+                field(CostAmountExpected; Rec."Cost Amount (Expected)")
                 {
                     Visible = false;
                 }
-                field(CostAmountActualACY; "Cost Amount (Actual) (ACY)")
+                field(CostAmountActual; Rec."Cost Amount (Actual)")
+                {
+                }
+                field(CostAmountNonInvtbl; Rec."Cost Amount (Non-Invtbl.)")
+                {
+                }
+                field(CostAmountExpectedACY; Rec."Cost Amount (Expected) (ACY)")
                 {
                     Visible = false;
                 }
-                field(CostAmountNonInvtblACY; "Cost Amount (Non-Invtbl.)(ACY)")
+                field(CostAmountActualACY; Rec."Cost Amount (Actual) (ACY)")
                 {
                     Visible = false;
                 }
-                field(CompletelyInvoiced; "Completely Invoiced")
+                field(CostAmountNonInvtblACY; Rec."Cost Amount (Non-Invtbl.)(ACY)")
                 {
                     Visible = false;
                 }
-                field(Open; Open)
-                {
-                }
-                field(DropShipment; "Drop Shipment")
+                field(CompletelyInvoiced; Rec."Completely Invoiced")
                 {
                     Visible = false;
                 }
-                field(AssembleToOrder; "Assemble to Order")
+                field(Open; Rec.Open)
+                {
+                }
+                field(DropShipment; Rec."Drop Shipment")
                 {
                     Visible = false;
                 }
-                field(AppliedEntryToAdjust; "Applied Entry to Adjust")
+                field(AssembleToOrder; Rec."Assemble to Order")
                 {
                     Visible = false;
                 }
-                field(EntryNo; "Entry No.")
+                field(AppliedEntryToAdjust; Rec."Applied Entry to Adjust")
+                {
+                    Visible = false;
+                }
+                field(EntryNo; Rec."Entry No.")
                 {
                 }
-                field(OrderNo; "Order No.")
+                field(OrderNo; Rec."Order No.")
                 {
                     CaptionML = DEU = 'A/B Nummer',
                                 ENU = 'A/B Number';
                 }
-                field(OrderLineNo; "Order Line No.")
+                field(OrderLineNo; Rec."Order Line No.")
                 {
                     CaptionML = DEU = 'A/B Zeilennr.',
                                 ENU = 'A/B Line No.';
                 }
-                field(SourceNo; "Source No.")
+                field(SourceNo; Rec."Source No.")
                 {
                     CaptionML = DEU = 'Deb./Kred. Nr.',
                                 ENU = 'Cust./Vend. No.';
@@ -204,7 +204,7 @@ page 50010 "Item Led. Entry History (INT)"
 
                     trigger OnAction()
                     begin
-                        ShowDimensions;
+                        Rec.ShowDimensions;
                     end;
                 }
                 action(ValueEntries)
@@ -251,7 +251,7 @@ page 50010 "Item Led. Entry History (INT)"
 
                 trigger OnAction()
                 begin
-                    Navigate.SetDoc("Posting Date", "Document No.");
+                    Navigate.SetDoc(Rec."Posting Date", Rec."Document No.");
                     Navigate.Run;
                 end;
             }
@@ -260,19 +260,19 @@ page 50010 "Item Led. Entry History (INT)"
 
     trigger OnAfterGetRecord()
     begin
-        if Item.Get("Item No.") then begin
-            ItemUnitofMeasure.Get("Item No.", Item."Sales Unit of Measure");
-            Quantity := Round(Quantity / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
-            "Invoiced Quantity" := Round("Invoiced Quantity" / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
-            "Remaining Quantity" := Round("Remaining Quantity" / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
-            "Unit of Measure Code" := Item."Sales Unit of Measure";
-            "Qty. per Unit of Measure" := ItemUnitofMeasure."Qty. per Unit of Measure";
+        if Item.Get(Rec."Item No.") then begin
+            ItemUnitofMeasure.Get(Rec."Item No.", Item."Sales Unit of Measure");
+            Rec.Quantity := Round(Rec.Quantity / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
+            Rec."Invoiced Quantity" := Round(Rec."Invoiced Quantity" / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
+            Rec."Remaining Quantity" := Round(Rec."Remaining Quantity" / ItemUnitofMeasure."Qty. per Unit of Measure", 0.01);
+            Rec."Unit of Measure Code" := Item."Sales Unit of Measure";
+            Rec."Qty. per Unit of Measure" := ItemUnitofMeasure."Qty. per Unit of Measure";
         end;
-        CalcFields("Sales Amount (Expected)", "Sales Amount (Actual)");
-        if "Sales Amount (Actual)" <> 0 then
-            "Sales Price" := -Round("Sales Amount (Actual)" / Quantity, 0.01)
-        else if "Sales Amount (Expected)" <> 0 then
-            "Sales Price" := -Round("Sales Amount (Expected)" / Quantity, 0.01)
+        Rec.CalcFields("Sales Amount (Expected)", "Sales Amount (Actual)");
+        if Rec."Sales Amount (Actual)" <> 0 then
+            "Sales Price" := -Round(Rec."Sales Amount (Actual)" / Rec.Quantity, 0.01)
+        else if Rec."Sales Amount (Expected)" <> 0 then
+            "Sales Price" := -Round(Rec."Sales Amount (Expected)" / Rec.Quantity, 0.01)
         else
             "Sales Price" := 0;
     end;
@@ -301,18 +301,18 @@ page 50010 "Item Led. Entry History (INT)"
         Description := '';
 
         case true of
-            GetFilter("Item No.") <> '':
+            Rec.GetFilter("Item No.") <> '':
                 begin
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 27);
-                    SourceFilter := GetFilter("Item No.");
+                    SourceFilter := Rec.GetFilter("Item No.");
                     if MaxStrLen(Item."No.") >= StrLen(SourceFilter) then
                         if Item.Get(SourceFilter) then
                             Description := Item.Description;
                 end;
-            (GetFilter("Order No.") <> '') and ("Order Type" = "Order Type"::Production):
+            (Rec.GetFilter("Order No.") <> '') and (Rec."Order Type" = Rec."Order Type"::Production):
                 begin
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 5405);
-                    SourceFilter := GetFilter("Order No.");
+                    SourceFilter := Rec.GetFilter("Order No.");
                     if MaxStrLen(ProdOrder."No.") >= StrLen(SourceFilter) then
                         if ProdOrder.Get(ProdOrder.Status::Released, SourceFilter) or
                               ProdOrder.Get(ProdOrder.Status::Finished, SourceFilter)
@@ -321,52 +321,52 @@ page 50010 "Item Led. Entry History (INT)"
                             Description := ProdOrder.Description;
                         end;
                 end;
-            GetFilter("Source No.") <> '':
-                case "Source Type" of
-                    "Source Type"::Customer:
+            Rec.GetFilter(Rec."Source No.") <> '':
+                case Rec."Source Type" of
+                    Rec."Source Type"::Customer:
                         begin
                             SourceTableName :=
                                 ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 18);
-                            SourceFilter := GetFilter("Source No.");
+                            SourceFilter := Rec.GetFilter("Source No.");
                             if MaxStrLen(Cust."No.") >= StrLen(SourceFilter) then
                                 if Cust.Get(SourceFilter) then
                                     Description := Cust.Name;
                         end;
-                    "Source Type"::Vendor:
+                    Rec."Source Type"::Vendor:
                         begin
                             SourceTableName :=
                                 ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 23);
-                            SourceFilter := GetFilter("Source No.");
+                            SourceFilter := Rec.GetFilter("Source No.");
                             if MaxStrLen(Vend."No.") >= StrLen(SourceFilter) then
                                 if Vend.Get(SourceFilter) then
                                     Description := Vend.Name;
                         end;
                 end;
-            GetFilter("Global Dimension 1 Code") <> '':
+            Rec.GetFilter("Global Dimension 1 Code") <> '':
                 begin
                     GLSetup.Get;
                     Dimension.Code := GLSetup."Global Dimension 1 Code";
-                    SourceFilter := GetFilter("Global Dimension 1 Code");
+                    SourceFilter := Rec.GetFilter("Global Dimension 1 Code");
                     SourceTableName := Dimension.GetMLName(GlobalLanguage);
                     if MaxStrLen(DimValue.Code) >= StrLen(SourceFilter) then
                         if DimValue.Get(GLSetup."Global Dimension 1 Code", SourceFilter) then
                             Description := DimValue.Name;
                 end;
-            GetFilter("Global Dimension 2 Code") <> '':
+            Rec.GetFilter("Global Dimension 2 Code") <> '':
                 begin
                     GLSetup.Get;
                     Dimension.Code := GLSetup."Global Dimension 2 Code";
-                    SourceFilter := GetFilter("Global Dimension 2 Code");
+                    SourceFilter := Rec.GetFilter("Global Dimension 2 Code");
                     SourceTableName := Dimension.GetMLName(GlobalLanguage);
                     if MaxStrLen(DimValue.Code) >= StrLen(SourceFilter) then
                         if DimValue.Get(GLSetup."Global Dimension 2 Code", SourceFilter) then
                             Description := DimValue.Name;
                 end;
-            GetFilter("Document Type") <> '':
+            Rec.GetFilter("Document Type") <> '':
                 begin
-                    SourceTableName := GetFilter("Document Type");
-                    SourceFilter := GetFilter("Document No.");
-                    Description := GetFilter("Document Line No.");
+                    SourceTableName := Rec.GetFilter("Document Type");
+                    SourceFilter := Rec.GetFilter("Document No.");
+                    Description := Rec.GetFilter("Document Line No.");
                 end;
         end;
         exit(StrSubstNo('%1 %2 %3', SourceTableName, SourceFilter, Description));

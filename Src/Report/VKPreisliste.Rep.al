@@ -212,7 +212,7 @@ report 50018 "VK-Preisliste Intertrade"
                     if not SalesPrice.FindFirst then
                         CurrReport.Skip;
                 end;
-                if ItemTranslation.Get("No.", '', Language.Code) then begin
+                if ItemTranslation.Get("No.", '', Sprache) then begin
                     Description := ItemTranslation.Description;
                     "Description 2" := ItemTranslation."Description 2";
                 end;
@@ -386,8 +386,7 @@ report 50018 "VK-Preisliste Intertrade"
         companyInfo.CalcFields(Picture);
         FormatAddr.Company(CompanyAddr, companyInfo);
         if Sprache <> '' then begin
-            Language.Get(Sprache);
-            CurrReport.Language := Language."Windows Language ID";
+            CurrReport.Language := LanguageMgt.GetLanguageIdOrDefault(Sprache);
         end;
     end;
 
@@ -438,7 +437,7 @@ report 50018 "VK-Preisliste Intertrade"
         SalesDesc: Text[50];
         ItemNo: Code[20];
         ItemDesc: Text[50];
-        [InDataSet]
+        // [InDataSet]
         SalesCodeCtrlEnable: Boolean;
         CustNo: Code[20];
         ContNo: Code[20];
@@ -452,12 +451,13 @@ report 50018 "VK-Preisliste Intertrade"
         CURRTEXT: Label 'All Price are excl. vat in %1.';
         OhnePreis: Boolean;
         PriceValid: Label 'Prices valid as from %1';
-        Language: Record Language;
+        // Language_var: Record Language;
         ItemTranslation: Record "Item Translation";
         Sprache: Code[10];
         UnitofMeasureRec: Record "Unit of Measure";
         DocMgt: Codeunit "Document Management (INT)";
         PriceGroup: Label 'Price Group: %1';
+        LanguageMgt: Codeunit Language;
 
     local procedure SetCurrency(CurrencyCode2: Code[10]; CurrencyFactor2: Decimal)
     begin
@@ -501,24 +501,24 @@ report 50018 "VK-Preisliste Intertrade"
 
     procedure PreparePrintSalesPrice(IsVariant: Boolean)
     begin
-        with SalesPrice do begin
-            if PricesInCurrency then begin
-                SetRange("Currency Code", Currency.Code);
-                if Find('-') then begin
-                    SetRange("Currency Code", '');
-                    DeleteAll;
-                end;
-                SetRange("Currency Code");
+        // with SalesPrice do begin
+        if PricesInCurrency then begin
+            SalesPrice.SetRange("Currency Code", Currency.Code);
+            if SalesPrice.Find('-') then begin
+                SalesPrice.SetRange("Currency Code", '');
+                SalesPrice.DeleteAll;
             end;
+            SalesPrice.SetRange("Currency Code");
+        end;
 
-            SetRange("Sales Type", SalesType);
-            SetRange("Sales Code", SalesCode);
+        SalesPrice.SetRange("Sales Type", SalesType);
+        SalesPrice.SetRange("Sales Code", SalesCode);
 
-            if IsVariant then begin
-                SetRange("Variant Code", '');
-                DeleteAll;
-                SetRange("Variant Code");
-            end;
+        if IsVariant then begin
+            SalesPrice.SetRange("Variant Code", '');
+            SalesPrice.DeleteAll;
+            SalesPrice.SetRange("Variant Code");
+            // end;
         end;
 
         IsFirstSalesPrice := true;
@@ -526,87 +526,87 @@ report 50018 "VK-Preisliste Intertrade"
 
     procedure PrintSalesPrice(IsVariant: Boolean)
     begin
-        with SalesPrice do begin
-            if IsFirstSalesPrice then begin
-                IsFirstSalesPrice := false;
-                if not Find('-') then begin
-                    if not IsVariant then begin
-                        if SalesType = SalesType::Campaign then
-                            CurrReport.Skip;
-
-                        "Currency Code" := '';
-                        "Price Includes VAT" := Item."Price Includes VAT";
-                        "Unit Price" := Item."Unit Price";
-                        "Unit of Measure Code" := Item."Base Unit of Measure";
-                        "Minimum Quantity" := 0;
-                    end else
+        // with SalesPrice do begin
+        if IsFirstSalesPrice then begin
+            IsFirstSalesPrice := false;
+            if not SalesPrice.Find('-') then begin
+                if not IsVariant then begin
+                    if SalesType = SalesType::Campaign then
                         CurrReport.Skip;
-                end;
-            end else
-                if Next = 0 then
-                    CurrReport.Break;
 
-            if (SalesType = SalesType::Campaign) and ("Sales Type" <> "Sales Type"::Campaign) then
-                CurrReport.Skip;
-
-            if "Price Includes VAT" then
-                VATText := Text000
-            else
-                VATText := Text001;
-            UnitOfMeasure := "Unit of Measure Code";
-            ConvertPricetoUoM(UnitOfMeasure, "Unit Price");
-            ConvertPriceLCYToFCY("Currency Code", "Unit Price");
-            if "Unit of Measure Code" = '' then
-                "Unit of Measure Code" := Item."Sales Unit of Measure";
-            if "Unit of Measure Code" <> '' then begin
-                UnitofMeasureRec.Get("Unit of Measure Code");
-                DocMgt.TranslateUnitOfMeasure(UnitofMeasureRec, Sprache);
-                UnitOfMeasure := UnitofMeasureRec.Description;
+                    SalesPrice."Currency Code" := '';
+                    SalesPrice."Price Includes VAT" := Item."Price Includes VAT";
+                    SalesPrice."Unit Price" := Item."Unit Price";
+                    SalesPrice."Unit of Measure Code" := Item."Base Unit of Measure";
+                    SalesPrice."Minimum Quantity" := 0;
+                end else
+                    CurrReport.Skip;
             end;
+        end else
+            if SalesPrice.Next = 0 then
+                CurrReport.Break;
+
+        if (SalesType = SalesType::Campaign) and (SalesPrice."Sales Type" <> SalesPrice."Sales Type"::Campaign) then
+            CurrReport.Skip;
+
+        if SalesPrice."Price Includes VAT" then
+            VATText := Text000
+        else
+            VATText := Text001;
+        UnitOfMeasure := SalesPrice."Unit of Measure Code";
+        ConvertPricetoUoM(UnitOfMeasure, SalesPrice."Unit Price");
+        ConvertPriceLCYToFCY(SalesPrice."Currency Code", SalesPrice."Unit Price");
+        if SalesPrice."Unit of Measure Code" = '' then
+            SalesPrice."Unit of Measure Code" := Item."Sales Unit of Measure";
+        if SalesPrice."Unit of Measure Code" <> '' then begin
+            UnitofMeasureRec.Get(SalesPrice."Unit of Measure Code");
+            DocMgt.TranslateUnitOfMeasure(UnitofMeasureRec, Sprache);
+            UnitOfMeasure := UnitofMeasureRec.Description;
         end;
+        // end;
     end;
 
     procedure PreparePrintSalesDisc(IsVariant: Boolean)
     begin
-        with SalesLineDisc do begin
-            if PricesInCurrency then begin
-                SetRange("Currency Code", Currency.Code);
-                if Find('-') then begin
-                    SetRange("Currency Code", '');
-                    DeleteAll;
-                end;
-                SetRange("Currency Code");
+        // with SalesLineDisc do begin
+        if PricesInCurrency then begin
+            SalesLineDisc.SetRange("Currency Code", Currency.Code);
+            if SalesLineDisc.Find('-') then begin
+                SalesLineDisc.SetRange("Currency Code", '');
+                SalesLineDisc.DeleteAll;
             end;
-
-            if IsVariant then begin
-                SetRange("Variant Code", '');
-                DeleteAll;
-                SetRange("Variant Code");
-            end;
+            SalesLineDisc.SetRange("Currency Code");
         end;
+
+        if IsVariant then begin
+            SalesLineDisc.SetRange("Variant Code", '');
+            SalesLineDisc.DeleteAll;
+            SalesLineDisc.SetRange("Variant Code");
+        end;
+        // end;
 
         IsFirstSalesLineDisc := true;
     end;
 
     procedure PrintSalesDisc()
     begin
-        with SalesLineDisc do begin
-            if IsFirstSalesLineDisc then begin
-                IsFirstSalesLineDisc := false;
-                if not Find('-') then
-                    CurrReport.Break;
-            end else
-                if Next = 0 then
-                    CurrReport.Break;
+        // with SalesLineDisc do begin
+        if IsFirstSalesLineDisc then begin
+            IsFirstSalesLineDisc := false;
+            if not SalesPrice.Find('-') then
+                CurrReport.Break;
+        end else
+            if SalesPrice.Next = 0 then
+                CurrReport.Break;
 
-            if (SalesType = SalesType::Campaign) and ("Sales Type" <> "Sales Type"::Campaign) then
-                CurrReport.Skip;
+        if (SalesType = SalesType::Campaign) and (SalesPrice."Sales Type" <> SalesPrice."Sales Type"::Campaign) then
+            CurrReport.Skip;
 
-            if "Unit of Measure Code" = '' then
-                UnitOfMeasure := Item."Base Unit of Measure"
-            else
-                UnitOfMeasure := "Unit of Measure Code";
-        end;
+        if SalesPrice."Unit of Measure Code" = '' then
+            UnitOfMeasure := Item."Base Unit of Measure"
+        else
+            UnitOfMeasure := SalesPrice."Unit of Measure Code";
+        // end;
     end;
 
     procedure InitializeRequest(NewDateReq: Date; NewSalesType: Option; NewSalesCode: Code[20]; NewCurrencyCode: Code[10])
