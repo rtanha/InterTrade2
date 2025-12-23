@@ -1431,17 +1431,15 @@ report 50003 "Sales - Invoice (INT)"
             exit;
         end;
 
-        with SalesShipmentBuffer do begin
-            "Document No." := SalesInvoiceLine."Document No.";
-            "Line No." := SalesInvoiceLine."Line No.";
-            "Entry No." := NextEntryNo;
-            Type := SalesInvoiceLine.Type;
-            "No." := SalesInvoiceLine."No.";
-            Quantity := QtyOnShipment;
-            "Posting Date" := PostingDate;
-            Insert;
-            NextEntryNo := NextEntryNo + 1
-        end;
+        SalesShipmentBuffer."Document No." := SalesInvoiceLine."Document No.";
+        SalesShipmentBuffer."Line No." := SalesInvoiceLine."Line No.";
+        SalesShipmentBuffer."Entry No." := NextEntryNo;
+        SalesShipmentBuffer.Type := SalesInvoiceLine.Type;
+        SalesShipmentBuffer."No." := SalesInvoiceLine."No.";
+        SalesShipmentBuffer.Quantity := QtyOnShipment;
+        SalesShipmentBuffer."Posting Date" := PostingDate;
+        SalesShipmentBuffer.Insert;
+        NextEntryNo := NextEntryNo + 1;
     end;
 
     local procedure DocumentCaption(): Text[250]
@@ -1470,15 +1468,13 @@ report 50003 "Sales - Invoice (INT)"
         TempPostedAsmLine.DeleteAll;
         if "Sales Invoice Line".Type <> "Sales Invoice Line".Type::Item then
             exit;
-        with ValueEntry do begin
-            SetCurrentKey("Document No.");
-            SetRange("Document No.", "Sales Invoice Line"."Document No.");
-            SetRange("Document Type", "Document Type"::"Sales Invoice");
-            SetRange("Document Line No.", "Sales Invoice Line"."Line No.");
-            SetRange(Adjustment, false);
-            if not FindSet then
-                exit;
-        end;
+        ValueEntry.SetCurrentKey("Document No.");
+        ValueEntry.SetRange("Document No.", "Sales Invoice Line"."Document No.");
+        ValueEntry.SetRange("Document Type", ValueEntry."Document Type"::"Sales Invoice");
+        ValueEntry.SetRange("Document Line No.", "Sales Invoice Line"."Line No.");
+        ValueEntry.SetRange(Adjustment, false);
+        if not ValueEntry.FindSet then
+            exit;;
         repeat
             if ItemLedgerEntry.Get(ValueEntry."Item Ledger Entry No.") then begin
                 if ItemLedgerEntry."Document Type" = ItemLedgerEntry."Document Type"::"Sales Shipment" then begin

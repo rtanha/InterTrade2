@@ -42,3 +42,9 @@ obj/
 Cache*
 
 .gitignore
+
+# User requested cache ignores
+*cache*
+**/*cache*
+.alpackages/
+
