@@ -2,7 +2,7 @@
   "id": "23bd31ed-2895-45f7-b971-0d3ebf4884be",
   "name": "InterTrade",
   "publisher": "Reza Tanha",
-  "version": "25.0.0.15",
+  "version": "26.0.1.01",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -11,18 +11,17 @@
   "url": "",
   "logo": "",
   "dependencies": [
-    {
-      "id":"5afd1556-4470-43bf-aa2d-d58f23e00e90",      
-      "name" : "Ftp Management",
-      "publisher" : "Vffice",
-      "version": "1.0.0.2" 
-    }
-    
+    { 
+      "id": "ad064829-9e57-4731-9de3-35fc4e191172", 
+      "name": "C365 - Message Exchange", 
+      "publisher": "akquinet NEXT GmbH", 
+      "version": "20.0.0.0"
+    }    
   ],
-
+  
   "screenshots": [],
   "platform": "1.0.0.0",
-  "application": "25.0.0.0",
+  "application": "26.0.0.0",
   "target": "Cloud",
   "idRanges": [
     {
@@ -36,7 +35,7 @@
     "allowDownloadingSource": true,
     "includeSourceInSymbolFile": true
   },
-  "runtime": "14.1",
+  "runtime": "15.0",
   "features": [
        
   ]
