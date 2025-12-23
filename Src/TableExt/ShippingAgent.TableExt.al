@@ -6,6 +6,7 @@ tableextension 50000 "Shipping Agent Ext (INT)" extends "Shipping Agent"
         field(50000; "Vendor No."; Code[20])
         {
             CaptionML = ENU = 'Vendor No.', DEU = 'Kreditorennr.';
+            TableRelation = Vendor;
             DataClassification = CustomerContent;
         }
     }

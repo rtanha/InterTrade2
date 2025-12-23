@@ -1019,17 +1019,17 @@ report 50003 "Sales - Invoice (INT)"
 
                 if "Container No. (INT)" <> '' then
                     Verschiffung := StrSubstNo('%1 %2', FieldCaption("Container No. (INT)"), "Container No. (INT)");
-                // if SeaRoute.GET("Sales Invoice Header".Shipping) then begin
-                //   if SeaRoute.Name <>'' then
-                //     if Verschiffung <> '' then
-                //       Verschiffung := Verschiffung + ' / '+ SeaRoute.Name
-                //     else
-                //       Verschiffung := SeaRoute.Name;
-                //   if SeaRoute."Route-No." <> '' then
-                //     Verschiffung := Verschiffung + ' / '+ SeaRoute."Route-No.";
-                //   if SeaRoute."ETD 1" <> 0D then
-                //     Verschiffung := Verschiffung + ' / ETS: '+ Format(SeaRoute."ETD 1");
-                // end;
+                if SeaRoute.GET("Sales Invoice Header"."Shipping (INT)") then begin
+                    if SeaRoute.Name <> '' then
+                        if Verschiffung <> '' then
+                            Verschiffung := Verschiffung + ' / ' + SeaRoute.Name
+                        else
+                            Verschiffung := SeaRoute.Name;
+                    if SeaRoute."Route-No." <> '' then
+                        Verschiffung := Verschiffung + ' / ' + SeaRoute."Route-No.";
+                    if SeaRoute."ETD 1" <> 0D then
+                        Verschiffung := Verschiffung + ' / ETS: ' + Format(SeaRoute."ETD 1");
+                end;
                 GetInvoiceText(InvoiceText);
             end;
         }
@@ -1257,7 +1257,7 @@ report 50003 "Sales - Invoice (INT)"
         NettWeightCaption: Label 'Net Weight Kg', Comment = 'DEU = "Netto Gewicht kg"';
         GrossWeightCaption: Label 'Gross Weight Kg', Comment = 'DEU = "Brutto Gewicht kg"';
         Verschiffung: Text;
-        // SeaRoute: Record Table50006;
+        SeaRoute: Record "Sea Route";
         DeliveryDateCatpion: Label 'Delivery Date:', Comment = 'DEU = "Lieferdatum:"';
         CountryOfOrgin: Label 'Origin: %1', Comment = 'DEU = "Ursprung: %1"';
         Country: Record "Country/Region";
